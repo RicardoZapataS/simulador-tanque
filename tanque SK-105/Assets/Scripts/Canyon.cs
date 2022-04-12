@@ -10,12 +10,16 @@ public class Canyon : MonoBehaviour
     private GameObject _projectilePrefab;
     [SerializeField]
     private Transform _shootingPoint; 
+    [SerializeField] AudioClip shootSound;
 
-    public AudioSource audioSource;
+    AudioSource audioSource;
 
     [SerializeField]
     float smooth = 5.0f;
 
+    void Start() {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     private void Update()
     {
@@ -48,7 +52,7 @@ public class Canyon : MonoBehaviour
         }
 
         projectileRigidbody.velocity = transform.up * _distance;   
-        audioSource.Play();
+        audioSource?.PlayOneShot(shootSound);
         Destroy(projectile, 15);
     }
     

@@ -25,7 +25,7 @@ public class GameMananger : MonoBehaviour
             _loadOperations.Remove(ao); 
         }
 
-        if(_currentLevelName!="MainMenu")
+        if(_currentLevelName != "MainMenu")
         {
             _canvasMainMenu.SetActive(false);
             _dummyCamera.SetActive(false);
