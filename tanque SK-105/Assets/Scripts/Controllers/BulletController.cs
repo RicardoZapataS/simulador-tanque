@@ -4,13 +4,12 @@ public class BulletController : MonoBehaviour {
     [SerializeField] BulletData bulletData;
 
     Rigidbody rb;
-    void Start() {
-        rb = GetComponent<Rigidbody>();
-    }
 
-    public void Init(BulletData bulletData) {
+    public void Init(Transform from, BulletData bulletData) {
         this.bulletData = bulletData;
-        rb.velocity = transform.forward * bulletData.initialVelocity;
+        rb = GetComponent<Rigidbody>();
+        rb.velocity = from.up * bulletData.initialVelocity;
+        Destroy(gameObject, 15);
     }
 
     private void OnTriggerEnter(Collider other) {

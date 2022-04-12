@@ -6,10 +6,14 @@ using TMPro;
 
 public class ConfigController : MonoBehaviour {
     [SerializeField] TMP_Dropdown dropdown;
+    [SerializeField] List<BulletData> bulletDatas;
     
     public TypeBullet TypeAmmunition = TypeBullet.CargaHueca;
     
     void Start() =>
-        dropdown.onValueChanged.AddListener(value => TypeAmmunition = (TypeBullet)value);
+        dropdown.onValueChanged.AddListener(value => {
+            TypeAmmunition = (TypeBullet) value;
+            UserData.BulletData = bulletDatas[value];
+        });
 
 }

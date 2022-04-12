@@ -4,39 +4,36 @@ using UnityEngine;
 
 public class Canyon : MonoBehaviour
 {
-    [SerializeField, Range(0, 1000)]
-    private int _distance = 1;
-    [SerializeField]
-    private GameObject _projectilePrefab;
-    [SerializeField]
-    private Transform _shootingPoint; 
+    [SerializeField, Range(0, 1000)] int _distance = 1;
+    [SerializeField] GameObject _projectilePrefab;
+    [SerializeField] Transform _shootingPoint;
     [SerializeField] AudioClip shootSound;
 
     AudioSource audioSource;
 
-    [SerializeField]
-    float smooth = 5.0f;
+    [SerializeField] float smooth = 5.0f;
 
-    void Start() {
+    void Start()
+    {
         audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            ShootProjectile(); 
+            ShootProjectile();
         }
         float x = Input.GetAxis("Horizontal");
 
         if (x != 0)
         {
-            transform.Rotate(Vector3.up * smooth * Time.deltaTime * x, Space.World); 
+            transform.Rotate(Vector3.up * smooth * Time.deltaTime * x, Space.World);
         }
 
-        float y = Input.GetAxis("Vertical"); 
+        float y = Input.GetAxis("Vertical");
 
-        if(y!=0)
+        if (y != 0)
         {
             transform.Rotate(Vector3.forward * smooth * Time.deltaTime * y, Space.World);
         }
@@ -44,21 +41,18 @@ public class Canyon : MonoBehaviour
 
     private void ShootProjectile()
     {
-        GameObject projectile = Instantiate(_projectilePrefab, _shootingPoint.position, Quaternion.identity); 
-        Rigidbody projectileRigidbody = null; 
-        if(projectile.GetComponent<Rigidbody>() != null)
+        GameObject projectile = Instantiate(_projectilePrefab, _shootingPoint.position, Quaternion.identity);
+        if (projectile.TryGetComponent(typeof(BulletController), out bulletController))
         {
-            projectileRigidbody = projectile.GetComponent<Rigidbody>();
+            BulletController.Init(transform, UserData.BulletData);
+            // projectileRigidbody.velocity = transform.up * _distance;
+            audioSource?.PlayOneShot(shootSound);
         }
-
-        projectileRigidbody.velocity = transform.up * _distance;   
-        audioSource?.PlayOneShot(shootSound);
-        Destroy(projectile, 15);
     }
-    
+
     private void OnDrawGizmos()
     {
-        Debug.DrawLine(transform.position, transform.position + transform.up * _distance); 
+        Debug.DrawLine(transform.position, transform.position + transform.up * _distance);
     }
     public void RotateCanyon(Vector3 axis, float angle)
     {
