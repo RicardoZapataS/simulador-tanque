@@ -42,9 +42,9 @@ public class Canyon : MonoBehaviour
     private void ShootProjectile()
     {
         GameObject projectile = Instantiate(_projectilePrefab, _shootingPoint.position, Quaternion.identity);
-        if (projectile.TryGetComponent(typeof(BulletController), out bulletController))
+        if (projectile.TryGetComponent(out BulletController bulletController))
         {
-            BulletController.Init(transform, UserData.BulletData);
+            bulletController.Init(transform, UserData.BulletData);
             // projectileRigidbody.velocity = transform.up * _distance;
             audioSource?.PlayOneShot(shootSound);
         }

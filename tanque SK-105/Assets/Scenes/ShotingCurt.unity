@@ -1629,7 +1629,7 @@ MonoBehaviour:
   _distance: 700
   _projectilePrefab: {fileID: 1692934720675588218, guid: bda44c17e30acd047bbcd6b9436e8d75, type: 3}
   _shootingPoint: {fileID: 1541678676}
-  shootSound: {fileID: 0}
+  shootSound: {fileID: 8300000, guid: e90b789135a78a3418ba9a32516583e7, type: 3}
   smooth: 1
 --- !u!82 &1686442742719715942
 AudioSource:

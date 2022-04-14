@@ -5,3 +5,8 @@ public enum TypeBullet {
     Practica = 2,
 }
 
+public enum Dificulty {
+    Facil,
+    Normal,
+    Dificil,
+}
