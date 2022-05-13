@@ -9,8 +9,8 @@ public class ConfigController : MonoBehaviour {
     [SerializeField] TMP_Dropdown dropdownDificulty;
     [SerializeField] List<BulletData> bulletDatas;
     
-    [ReadOnly] public Dificulty dificulty;
-    [ReadOnly] public TypeBullet TypeAmmunition = TypeBullet.CargaHueca;
+    Dificulty dificulty;
+    TypeBullet TypeAmmunition = TypeBullet.CargaHueca;
     
     void Start() {
         dropdown.onValueChanged.AddListener(value => {

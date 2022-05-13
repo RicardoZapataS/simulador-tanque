@@ -1,0 +1,76 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+
+public class TCPServer : TCPImplementation
+{
+    Thread ReadThread;
+
+    Action<string> OnDataReceived;
+
+    public Action OnDisconnect;
+    public Action<Exception> OnError;
+
+    #region Server Variable
+    IPEndPoint ipEnd;
+    Socket sock;
+    Socket clientSock;
+    #endregion
+
+    public bool Connect(int port, Action<Exception> onError) {
+        OnError = onError;
+        try {
+            ipEnd = new IPEndPoint(IPAddress.Any, port);
+            sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
+            sock.Bind(ipEnd);
+            ReadThread = new Thread(listen);
+            ReadThread.Start();
+            return true;
+        }
+        catch (Exception e) {
+            OnError?.Invoke(e);
+            return false;
+        }
+    }
+
+    void listen() {
+        do {
+            try {
+                sock.Listen(100);
+                clientSock = sock.Accept();
+                byte[] clientData = new byte[4096];
+                clientSock.Receive(clientData);
+                string getStr = Encoding.ASCII.GetString(clientData);
+
+                OnDataReceived?.Invoke(getStr);
+            }
+            catch (Exception e) {
+                OnError?.Invoke(e);
+                break;
+            }
+        } while (true);
+
+        clientSock.Close();
+        sock.Close();
+        OnDisconnect?.Invoke();
+    }
+
+    public void sendData(string msg) {
+        try {
+            clientSock.Send(Encoding.ASCII.GetBytes(msg));
+        }
+        catch (Exception e) {
+            OnError?.Invoke(e);
+        }
+    }
+
+    public void setOnDataListener(Action<string> listener) => OnDataReceived = listener;
+    public void setOnDisconnect(Action listener) => OnDisconnect = listener;
+    public void setOnError(Action<Exception> listener) => OnError = listener;
+}
