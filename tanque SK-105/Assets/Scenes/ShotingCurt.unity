@@ -1609,6 +1609,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ff8a0c1561f8b94bbeb7ce3b4c925b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCamera: {fileID: 1771263523}
+  secondaryCamera: {fileID: 1687073044}
   _distance: 700
   _projectilePrefab: {fileID: 1692934720675588218, guid: bda44c17e30acd047bbcd6b9436e8d75, type: 3}
   _shootingPoint: {fileID: 1541678676}

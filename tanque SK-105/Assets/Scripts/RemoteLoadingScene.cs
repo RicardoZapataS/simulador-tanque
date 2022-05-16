@@ -23,10 +23,24 @@ public class RemoteLoadingScene : MonoBehaviour {
     void Start() {
         TCPManager.CreateTCPInstance();
         StartCoroutine(GenerateTips());
-        LoadScene();
+        StartCoroutine(LoadScene());
     }
 
-    public void LoadScene() {
+    IEnumerator LoadScene() {
+        yield return new WaitForSeconds(2f);
+        SetStart stateResponse = null;
+        string state = "";
+
+        while (state != "2" || string.IsNullOrEmpty(state)) {
+            try {
+                stateResponse = ApiHelper.LoadState();
+                state = stateResponse.value;
+                print("Calling API");
+            } catch (Exception _e) {
+                state = "";
+            }
+            yield return new WaitForSeconds(1f);
+        }
         SceneManager.LoadScene(1);
     }
 
