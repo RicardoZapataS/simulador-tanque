@@ -19,7 +19,6 @@ public class RemoteLoadingScene : MonoBehaviour {
     [SerializeField] Vector2 timeBetweenTips;
     [SerializeField] List<string> tips;
 
-    // void Start () => StartCoroutine(GenerateTips());
     void Start() {
         TCPManager.CreateTCPInstance();
         StartCoroutine(GenerateTips());
@@ -35,7 +34,7 @@ public class RemoteLoadingScene : MonoBehaviour {
             try {
                 stateResponse = ApiHelper.LoadState();
                 state = stateResponse.value;
-                print("Calling API");
+                print($"Calling API \"${state}\"");
             } catch (Exception _e) {
                 state = "";
             }

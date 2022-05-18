@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5311258664347724639}
   - component: {fileID: 547010054756258836}
   - component: {fileID: 5086014169841997105}
+  - component: {fileID: -8280405679204577870}
   m_Layer: 0
   m_Name: municion
   m_TagString: Untagged
@@ -134,7 +135,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -228,3 +229,15 @@ MonoBehaviour:
     typeBullet: 0
     initialVelocity: 0
     weight: 0
+--- !u!114 &-8280405679204577870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1692934720675588218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa400fba09e85edae841a03cbe952328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

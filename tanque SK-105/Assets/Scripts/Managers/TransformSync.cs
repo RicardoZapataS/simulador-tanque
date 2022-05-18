@@ -2,13 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+
 
 public class TransformSync : MonoBehaviour {
 
+    [SerializeField] TextMeshProUGUI textPos, textRot;
+
     TCPManager tcp;
-
     Vector3 lastPos, lastScale, lastRotation;
-
     int id;
 
     // Start is called before the first frame update
@@ -36,6 +38,7 @@ public class TransformSync : MonoBehaviour {
                 transform.localScale = lastScale = (Vector3) packer.data;
                 break;
         }
+        showUI();
     }
 
     void LateUpdate() {
@@ -51,5 +54,12 @@ public class TransformSync : MonoBehaviour {
             tcp.sendData<Vector3>(TypeDataPackage.Scale, gameObject.GetInstanceID(), lastScale);
             lastScale = transform.localScale;
         }
+        showUI();
+    }
+
+    void showUI () {
+        var t = transform;
+        textPos.text = $"<b>Position:</b>\n<b>x:{t.position.x}</b>\n<b>y:{t.position.y}</b>\n<b>z:{t.position.z}</b>";
+        textRot.text = $"<b>Rotation:</b>\n<b>x:{t.rotation.x}</b>\n<b>y:{t.rotation.y}</b>\n<b>z:{t.rotation.z}</b>";
     }
 }

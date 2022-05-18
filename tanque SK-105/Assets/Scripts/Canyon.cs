@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(InstanceSync))]
+[RequireComponent(typeof(TransformSync))]
 public class Canyon : MonoBehaviour {
 
+    [SerializeField] GameObject uiCanvas;
     [SerializeField] GameObject mainCamera;
     [SerializeField] GameObject secondaryCamera;
 
@@ -24,6 +27,8 @@ public class Canyon : MonoBehaviour {
         remoteInstantiate = GetComponent<InstanceSync>();
 
         remoteInstantiate.onRemoteInstance += ReceivedInstanceProjectile;
+
+        uiCanvas.SetActive(!TCPManager.Main.isServer);
     }
 
     private void Update() {
@@ -63,8 +68,7 @@ public class Canyon : MonoBehaviour {
     private void OnDrawGizmos() {
         Debug.DrawLine(transform.position, transform.position + transform.up * _distance);
     }
-    public void RotateCanyon(Vector3 axis, float angle)
-    {
+    public void RotateCanyon(Vector3 axis, float angle) {
         Quaternion target = transform.rotation * Quaternion.AngleAxis(angle, axis);
         transform.rotation = target;
     }
