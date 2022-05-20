@@ -13,12 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('/setStart', 'ParametersController@SetStart')->name('setStart');
+Route::get('/pause', 'ParametersController@pause')->name('pause');
+Route::get('/unpause', 'ParametersController@unpause')->name('unpause');
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/', 'MainController@index')->name('index');
+    Route::post('/', 'MainController@StartRoom')->name('startRoom');
+
+});
