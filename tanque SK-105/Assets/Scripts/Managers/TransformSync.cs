@@ -59,7 +59,9 @@ public class TransformSync : MonoBehaviour {
 
     void showUI () {
         var t = transform;
-        textPos.text = $"<b>Position:</b>\n<b>x:{t.position.x}</b>\n<b>y:{t.position.y}</b>\n<b>z:{t.position.z}</b>";
-        textRot.text = $"<b>Rotation:</b>\n<b>x:{t.rotation.x}</b>\n<b>y:{t.rotation.y}</b>\n<b>z:{t.rotation.z}</b>";
+        if (textPos != null)
+            textPos.text = $"<b>Position:</b>\n<b>x:{t.position.x}</b>\n<b>y:{t.position.y}</b>\n<b>z:{t.position.z}</b>";
+        if (textRot != null)
+            textRot.text = $"<b>Rotation:</b>\n<b>x:{t.rotation.x}</b>\n<b>y:{t.rotation.y}</b>\n<b>z:{t.rotation.z}</b>";
     }
 }

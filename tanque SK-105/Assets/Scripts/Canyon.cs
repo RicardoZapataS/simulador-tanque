@@ -20,7 +20,10 @@ public class Canyon : MonoBehaviour {
     AudioSource audioSource;
     InstanceSync remoteInstantiate;
 
+    public static Canyon singletone;
+
     void Start() {
+        singletone = this;
         audioSource = GetComponent<AudioSource>();
         mainCamera.SetActive(TCPManager.Main.isServer);
         secondaryCamera.SetActive(!TCPManager.Main.isServer);
@@ -71,5 +74,20 @@ public class Canyon : MonoBehaviour {
     public void RotateCanyon(Vector3 axis, float angle) {
         Quaternion target = transform.rotation * Quaternion.AngleAxis(angle, axis);
         transform.rotation = target;
+    }
+
+    public void Inpacted (string tag) {
+        print(tag);
+        switch (tag) {
+            case "Cabina":
+                break;
+            case "Canon":
+                break;
+            case "Batea":
+                break;
+            case "Oruga":
+                break;
+        }
+        
     }
 }
