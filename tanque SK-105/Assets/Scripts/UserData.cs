@@ -4,7 +4,11 @@ public static class UserData {
     static Dificulty dificulty;
 
     public static BulletData BulletData {
-        get => bulletData;
+        get => bulletData ?? new BulletData() {
+            typeBullet = TypeBullet.Practica,
+            initialVelocity = 800,
+            weight = 17.3f
+        };
         set => bulletData = value;
     }
 

@@ -1,7 +1,9 @@
 using UnityEngine;
 
 public class BulletController : MonoBehaviour {
+
     [SerializeField] BulletData bulletData;
+    [SerializeField] GameObject explosionPrefab;
 
     Rigidbody rb;
 
@@ -12,10 +14,18 @@ public class BulletController : MonoBehaviour {
         Destroy(gameObject, 15);
     }
 
-    private void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("Enemy")) {
-            // other.gameObject.GetComponent<EnemyController>().TakeDamage(bulletData.damage);
-            Destroy(gameObject);
-        }
+    void OnTriggerEnter(Collider other) {
+        print(other.name);
+        Canyon.singletone.Inpacted(other.tag);
+        Destroy(Instantiate(explosionPrefab, transform.position, Quaternion.identity), 5f);
+        Destroy(gameObject);
+    }
+
+    void OnCollisionEnter (Collision col) {
+        Collider other = col.collider;
+        print(other.name);
+        Canyon.singletone.Inpacted(other.tag);
+        Destroy(Instantiate(explosionPrefab, transform.position, Quaternion.identity), 5f);
+        Destroy(gameObject);
     }
 }

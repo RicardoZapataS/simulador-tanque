@@ -2,20 +2,32 @@ using UnityEngine;
 using System.Net;
 using System.IO;
 
-public static class ApiHelper
-{
+public static class ApiHelper {
+
+    //public const string URL = "https://asa.inventiva.com.bo/api";
+    public const string URL = "http://127.0.0.1:8000/api";
+
     public static SetStart LoadState(){
-        HttpWebRequest  request = (HttpWebRequest)WebRequest.Create("http://127.0.0.1:8000/api/simulatorState");
+        HttpWebRequest  request = (HttpWebRequest) WebRequest.Create($"{URL}/simulatorState");
         HttpWebResponse response =(HttpWebResponse)request.GetResponse();
         StreamReader reader = new StreamReader(response.GetResponseStream());
         string json = reader.ReadToEnd();
         return JsonUtility.FromJson<SetStart>(json);     
     }
-    public static void Start(){
-        HttpWebRequest  request = (HttpWebRequest)WebRequest.Create("http://127.0.0.1:8000/api/setStart");
+
+    public static SetStart SetLowState(){
+        HttpWebRequest  request = (HttpWebRequest) WebRequest.Create($"{URL}/setLowState");
         HttpWebResponse response =(HttpWebResponse)request.GetResponse();
-        // StreamReader reader = new StreamReader(response.GetResponseStream());
-        // string json = reader.ReadToEnd();
-        // return JsonUtility.FromJson<SetStart>(json);     
+        StreamReader reader = new StreamReader(response.GetResponseStream());
+        string json = reader.ReadToEnd();
+        return JsonUtility.FromJson<SetStart>(json);     
+    }
+
+    public static RoomSetting GetRoomSetting(){
+        HttpWebRequest  request = (HttpWebRequest) WebRequest.Create($"{URL}/getRoomSetting");
+        HttpWebResponse response =(HttpWebResponse)request.GetResponse();
+        StreamReader reader = new StreamReader(response.GetResponseStream());
+        string json = reader.ReadToEnd();
+        return JsonUtility.FromJson<RoomSetting>(json);     
     }
 }

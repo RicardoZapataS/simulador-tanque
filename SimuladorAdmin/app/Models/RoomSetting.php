@@ -14,4 +14,9 @@ class RoomSetting extends Model
         'targetDistance',
         'TimeSimulator'
     ];
+
+    public function defaultSetting()
+    {
+        return $this->hasOne(DefaultSetting::class, 'room_setting_id', 'id');
+    }
 }

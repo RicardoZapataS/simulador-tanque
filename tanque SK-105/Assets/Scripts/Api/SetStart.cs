@@ -1,7 +1,6 @@
 [System.Serializable]
 
-public class SetStart
-{
+public class SetStart {
     public string id;
     public string name;
     public string value;

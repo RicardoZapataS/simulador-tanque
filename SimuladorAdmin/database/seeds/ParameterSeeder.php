@@ -20,7 +20,7 @@ class ParameterSeeder extends Seeder
             'value' => '1',
         ]);
         DB::table('parameters')->insert([
-            'name' => 'roomSetting',
+            'name' => 'latestRoom',
             'value' => '1',
         ]);
     }

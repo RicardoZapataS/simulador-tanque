@@ -16,10 +16,40 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/dist/css/adminlte.min.css') }}">
 
+    <style>
+        /* #203C64 */
+        .sidebar,
+        .brand-link {
+            background-color: #203C64 !important;
+        }
+
+        .main-header {
+            background-color: #ffffff;
+        }
+
+        .card-header {
+            /* background-color: #cedbee; */
+            background-color: #34495ef0;
+
+            /* background-color: #d7e5f8; */
+        }
+
+        .card-body {
+            /* background-color: #aac0df; */
+            background-color: #e4eaf1;
+            border: #34495ef0 1px solid;
+        }
+
+        h3.card-title {
+            color: #FFFFFF;
+        }
+
+    </style>
+
     @yield('css')
 </head>
 
-<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
 
         <!-- Preloader -->
@@ -29,7 +59,7 @@
         </div>
 
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-dark">
+        <nav class="main-header navbar navbar-expand">
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -37,7 +67,7 @@
                             class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="/" class="nav-link">Inicio</a>
+                    <a href="/" class="nav-link"><b>Inicio</b> </a>
                 </li>
             </ul>
 
@@ -66,23 +96,88 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="{{asset('assets/plugins/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+                        <img src="{{ asset('assets/plugins/dist/img/user2-160x160.jpg') }}"
+                            class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">{{ Auth::user()->name}}</a>
+                        <a href="#" class="d-block">{{ Auth::user()->name }}</a>
                     </div>
                 </div>
+                <div class=""
+                    style="display: flex; flex-direction: column; height: calc(100% - 5.5rem); justify-content: space-between;">
 
-                <!-- Sidebar Menu -->
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                        data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
+                    <!-- Sidebar Menu -->
+                    <nav class="mt-2">
+                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                            data-accordion="false">
+                            <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
 
+                            <li class="nav-item">
+                                <a href="{{route('index')}}" class="nav-link">
+                                    <i class="nav-icon fas fa-home"></i>
+                                    <p>
+                                        Inicio
+                                    </p>
+                                </a>
+                            </li>
 
-                    </ul>
-                </nav>
-                <!-- /.sidebar-menu -->
+                            <li class="nav-item">
+                                <a href="{{route('index')}}" class="nav-link">
+                                    <i class="nav-icon fas fa-home"></i>
+                                    <p>
+                                        Historial
+                                    </p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="pages/gallery.html" class="nav-link">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>
+                                        Usuarios
+                                    </p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="pages/gallery.html" class="nav-link">
+                                    <i class="nav-icon fas fa-toolbox"></i>
+                                    <p>
+                                        Parametros
+                                    </p>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </nav>
+                    <!-- /.sidebar-menu -->
+
+                    <!-- Sidebar Menu -->
+                    <nav class="mt-2">
+                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                            data-accordion="false">
+                            <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                              document.getElementById('logout-form').submit();">
+                                    <i class="nav-icon fas fa-sign-out-alt"></i>
+                                    <p>
+                                        Cerrar sesion
+                                    </p>
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    class="d-none">
+                                    @csrf
+                                </form>
+                            </li>
+
+                        </ul>
+                    </nav>
+                    <!-- /.sidebar-menu -->
+                </div>
+
             </div>
             <!-- /.sidebar -->
         </aside>

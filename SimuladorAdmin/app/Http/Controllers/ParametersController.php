@@ -7,41 +7,37 @@ use Illuminate\Http\Request;
 
 class ParametersController extends Controller
 {
-    public function Api(Type $var = null)
-    {
-        # code...
-    }
 
     public function SetStart()
     {
-        $simulatorState = Parameters::find(1);
-        $simulatorState->value = 2;
-        $simulatorState->save();
-        $lastState = Parameters::find(2);
-        $lastState->value = 2;
-        $lastState->save();
-
+        $simulatorState = $this->setParameter(1,2);
+        $this->setParameter(2,2);
         return $simulatorState;
 
     }
 
-    public function pause()
+    public function Pause()
     {
-        $simulatorState = Parameters::find(1);
-        $simulatorState->value = 3;
-        $simulatorState->save();
+        $simulatorState = $this->getParameter(1);
+        if($simulatorState == 3)
+            $this->setParameter(1,1);
+        else
+            $this->setParameter(1,3);
 
         return $simulatorState;
 
     }
-    public function unpause()
+    private function setParameter($id, $value)
     {
-        $simulatorState = Parameters::find(1);
-        $simulatorState->value = 1;
+        $simulatorState = Parameters::find($id);
+        $simulatorState->value = $value;
         $simulatorState->save();
-
         return $simulatorState;
-
+    }
+    private function getParameter($id)
+    {
+        $simulatorState = Parameters::find($id);
+        return $simulatorState->value;
     }
 
 

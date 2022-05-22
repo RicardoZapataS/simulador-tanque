@@ -1,4 +1,9 @@
 # This .gitignore file should be placed at the root of your Unity project directory
+***/Build/
+global.json
+_global.json
+omnisharp.json
+_omnisharp.json
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
