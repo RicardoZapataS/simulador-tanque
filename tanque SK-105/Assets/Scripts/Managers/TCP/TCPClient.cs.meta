@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:tanque SK-105/Assets/Scripts/Managers/TCP/TCPClient.cs.meta
 guid: 18c76649c1fe0a71cac1eb4731da8819
+========
+guid: 0c57d411a46ce29b98fbf883ee1b3d04
+>>>>>>>> WebProjectWithUnity:tanque SK-105/Assets/Scripts/Managers/InstanceSync.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

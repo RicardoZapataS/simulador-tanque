@@ -19,5 +19,9 @@ class ParameterSeeder extends Seeder
             'name' => 'lastState',
             'value' => '1',
         ]);
+        DB::table('parameters')->insert([
+            'name' => 'latestRoom',
+            'value' => '1',
+        ]);
     }
 }
