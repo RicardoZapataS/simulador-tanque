@@ -15,11 +15,12 @@ public static class ApiHelper {
         return JsonUtility.FromJson<SetStart>(json);     
     }
 
-    public static SetStart SetLowState(){
-        HttpWebRequest  request = (HttpWebRequest) WebRequest.Create($"{URL}/setLowState");
+    public static SetStart SetState(string value){
+        HttpWebRequest  request = (HttpWebRequest) WebRequest.Create($"{URL}/setState/{value}");
         HttpWebResponse response =(HttpWebResponse)request.GetResponse();
         StreamReader reader = new StreamReader(response.GetResponseStream());
         string json = reader.ReadToEnd();
+        Debug.Log(value);
         return JsonUtility.FromJson<SetStart>(json);     
     }
 

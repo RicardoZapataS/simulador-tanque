@@ -19,10 +19,10 @@ class ParametersController extends Controller
     public function Pause()
     {
         $simulatorState = $this->getParameter(1);
-        if($simulatorState == 3)
-            $this->setParameter(1,1);
-        else
+        if($simulatorState == 1)
             $this->setParameter(1,3);
+        else if($simulatorState == 4)
+            $this->setParameter(1,5);
 
         return $simulatorState;
 

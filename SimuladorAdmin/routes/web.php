@@ -25,4 +25,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/startSimulator', 'MainController@StartRoom')->name('startSimulator');
     Route::get('/simulator-screen', 'MainController@SimulatorScreem')->name('simulator');
 
+    Route::resource('usuario', UserController::class);
+
 });
