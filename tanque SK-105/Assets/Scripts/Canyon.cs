@@ -1,28 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 [RequireComponent(typeof(InstanceSync))]
 [RequireComponent(typeof(TransformSync))]
+[RequireComponent(typeof(AudioSource))]
 public class Canyon : MonoBehaviour {
 
     [SerializeField] GameObject uiCanvas;
+    [SerializeField] GameObject uiHostCanvas;
+    [SerializeField] TextMeshProUGUI textAmmo;
     [SerializeField] GameObject mainCamera;
     [SerializeField] GameObject secondaryCamera;
 
     [SerializeField, Range(0, 1000)] int _distance = 1;
     [SerializeField] GameObject _projectilePrefab;
     [SerializeField] Transform _shootingPoint;
-    [SerializeField] AudioClip shootSound;
+    [SerializeField] AudioClip shootSound, outOfAmmo;
 
     [SerializeField] float smooth = 5.0f;
 
+    int currentAmmo, maxAmmo;
     AudioSource audioSource;
     InstanceSync remoteInstantiate;
+
+    RoomSetting setting;
 
     public static Canyon singletone;
 
     void Start() {
+        setting = UserData.RoomSetting;
         singletone = this;
         audioSource = GetComponent<AudioSource>();
         mainCamera.SetActive(TCPManager.Main.isServer);
@@ -32,11 +40,17 @@ public class Canyon : MonoBehaviour {
         remoteInstantiate.onRemoteInstance += ReceivedInstanceProjectile;
 
         uiCanvas.SetActive(!TCPManager.Main.isServer);
+        uiHostCanvas.SetActive(TCPManager.Main.isServer);
+        currentAmmo = maxAmmo = setting.ammountBullet;
+        textAmmo.text = $"Municion: {currentAmmo}/{maxAmmo}";
     }
 
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (!TCPManager.Main.isServer) return;
+        if (Input.GetKeyDown(KeyCode.Space) && currentAmmo > 0 && currentAmmo <= maxAmmo)
             ShootProjectile();
+        else if (Input.GetKeyDown(KeyCode.Space) && currentAmmo <= 0)
+            audioSource?.PlayOneShot(outOfAmmo);
 
         float x = Input.GetAxis("Horizontal");
 
@@ -57,6 +71,9 @@ public class Canyon : MonoBehaviour {
             // projectileRigidbody.velocity = transform.up * _distance;
             audioSource?.PlayOneShot(shootSound);
         }
+        currentAmmo --;
+        if (currentAmmo <= 0) currentAmmo = 0;
+        textAmmo.text = $"Municion: {currentAmmo}/{maxAmmo}";
     }
 
     void ReceivedInstanceProjectile(RemoteBulletData data) {

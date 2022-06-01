@@ -4,8 +4,8 @@ using System.IO;
 
 public static class ApiHelper {
 
-    //public const string URL = "https://asa.inventiva.com.bo/api";
-    public const string URL = "http://127.0.0.1:8000/api";
+    public const string URL = "https://asa.inventiva.com.bo/api";
+    /* public const string URL = "http://127.0.0.1:8000/api"; */
 
     public static SetStart LoadState(){
         HttpWebRequest  request = (HttpWebRequest) WebRequest.Create($"{URL}/simulatorState");
@@ -28,6 +28,7 @@ public static class ApiHelper {
         HttpWebResponse response =(HttpWebResponse)request.GetResponse();
         StreamReader reader = new StreamReader(response.GetResponseStream());
         string json = reader.ReadToEnd();
+        Debug.Log(json);
         return JsonUtility.FromJson<RoomSetting>(json);     
     }
 }

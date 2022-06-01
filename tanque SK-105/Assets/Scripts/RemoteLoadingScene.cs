@@ -31,17 +31,22 @@ public class RemoteLoadingScene : MonoBehaviour {
         SetStart stateResponse = null;
         string state = "";
 
+#if !UNITY_EDITOR
         while (state != "2" || string.IsNullOrEmpty(state)) {
+#else
+        if (!string.IsNullOrEmpty(state)) {
+#endif
             try {
                 stateResponse = ApiHelper.LoadState();
                 state = stateResponse.value;
-                print($"Calling API \"${state}\"");
+                print($"Calling API \"{state ?? "Vacio"}\"");
             } catch (Exception _e) {
                 state = "";
             }
             yield return new WaitForSeconds(1f);
         }
         ApiHelper.SetLowState();
+        UserData.RoomSetting = ApiHelper.GetRoomSetting();
         SceneManager.LoadScene(1);
     }
 
