@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 
 using Random = UnityEngine.Random;
+using System.Globalization;
 
 ///
 /// Tips sacados de: https://github.com/jleahred/ortograph/blob/master/data/frases%20c%C3%A9lebres.txt
@@ -20,7 +21,7 @@ public class RemoteLoadingScene : MonoBehaviour {
     [SerializeField] List<string> tips;
 
     void Start() {
-        ApiHelper.SetState(States.Low);
+        ApiHelper.SetState((int) States.Low);
         TCPManager.CreateTCPInstance();
         StartCoroutine(GenerateTips());
         StartCoroutine(LoadScene());
@@ -29,23 +30,23 @@ public class RemoteLoadingScene : MonoBehaviour {
     IEnumerator LoadScene() {
         yield return new WaitForSeconds(2f);
         SetStart stateResponse = null;
-        string state = "";
+        int state = -1;
 
 #if !UNITY_EDITOR
-        while (state != States.Start || string.IsNullOrEmpty(state)) {
+        while (state != States.Start || state == -1) {
 #else
-        if (!string.IsNullOrEmpty(state)) {
+        if (state == -1) {
 #endif
             try {
                 stateResponse = ApiHelper.LoadState();
-                state = stateResponse.value;
-                print($"Calling API \"{state ?? "Vacio"}\"");
+                state = int.Parse(stateResponse.value, CultureInfo.InvariantCulture);
+                print($"Calling API \"{state}\"");
             } catch (Exception _e) {
-                state = "";
+                state = -1;
             }
             yield return new WaitForSeconds(1f);
         }
-        ApiHelper.SetState(States.Low);
+        ApiHelper.SetState((int) States.Low);
         UserData.RoomSetting = ApiHelper.GetRoomSetting();
         SceneManager.LoadScene(1);
     }

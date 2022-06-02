@@ -15,7 +15,7 @@ public class BulletController : MonoBehaviour {
     public void Init(Transform from, BulletData bulletData) {
         this.bulletData = bulletData;
         rb = GetComponent<Rigidbody>();
-        rb.velocity = from.up * bulletData.initialVelocity;
+        rb.velocity = from.forward * bulletData.initialVelocity;
         Invoke("DestroyMe", lifeTime);
     }
 

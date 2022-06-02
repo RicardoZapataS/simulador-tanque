@@ -17,10 +17,11 @@ public enum Dificulty {
     Dificil,
 }
 
-public class States {
-    public const string Low = "1";
-    public const string Start = "2";
-    public const string Pause = "3";
-    public const string ConfirmPause = "4";
-    public const string Unpause = "5";
+public enum States {
+    Low = 1,
+    Start = 2,
+    Pause = 3,
+    ConfirmPause = 4,
+    Unpause = 5,
+    EndSimulation = 6,
 }

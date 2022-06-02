@@ -13,6 +13,7 @@ public class Canyon : MonoBehaviour {
     [SerializeField] TextMeshProUGUI textAmmo;
     [SerializeField] GameObject mainCamera;
     [SerializeField] GameObject secondaryCamera;
+    [SerializeField] GameObject miraGameObject;
 
     [SerializeField, Range(0, 1000)] int _distance = 1;
     [SerializeField] GameObject _projectilePrefab;
@@ -40,13 +41,14 @@ public class Canyon : MonoBehaviour {
         remoteInstantiate.onRemoteInstance += ReceivedInstanceProjectile;
 
         uiCanvas.SetActive(!TCPManager.Main.isServer);
+        miraGameObject.SetActive(!TCPManager.Main.isServer);
         uiHostCanvas.SetActive(TCPManager.Main.isServer);
         currentAmmo = maxAmmo = setting.ammountBullet;
         textAmmo.text = $"Municion: {currentAmmo}/{maxAmmo}";
     }
 
     private void Update() {
-        if (!TCPManager.Main.isServer) return;
+        if (!TCPManager.Main.isServer || RoomManager.Main.endGame || RoomManager.Main.pauseGame) return;
         if (Input.GetKeyDown(KeyCode.Space) && currentAmmo > 0 && currentAmmo <= maxAmmo)
             ShootProjectile();
         else if (Input.GetKeyDown(KeyCode.Space) && currentAmmo <= 0)
@@ -63,27 +65,27 @@ public class Canyon : MonoBehaviour {
             transform.Rotate(Vector3.forward * smooth * Time.deltaTime * y, Space.World);
     }
 
-    // private void ShootProjectile() {
-    //     GameObject projectile = Instantiate(_projectilePrefab, _shootingPoint.position, Quaternion.identity);
-    //     if (projectile.TryGetComponent(out BulletController bulletController)) {
-    //         remoteInstantiate.InstanceGO(transform, UserData.BulletData);
-    //         bulletController.Init(transform, UserData.BulletData);
-    //         // projectileRigidbody.velocity = transform.up * _distance;
-    //         audioSource?.PlayOneShot(shootSound);
-    //     }
-    // }
-     private void ShootProjectile()
-    {
-        GameObject projectile = Instantiate(_projectilePrefab, _shootingPoint.position, Quaternion.identity); 
-        Rigidbody projectileRigidbody = null; 
-        if(projectile.GetComponent<Rigidbody>() != null)
-        {
-            projectileRigidbody = projectile.GetComponent<Rigidbody>();
+    private void ShootProjectile() {
+        GameObject projectile = Instantiate(_projectilePrefab, _shootingPoint.position, Quaternion.identity);
+        if (projectile.TryGetComponent(out BulletController bulletController)) {
+            remoteInstantiate.InstanceGO(transform, UserData.BulletData);
+            bulletController.Init(transform, UserData.BulletData);
+            // projectileRigidbody.velocity = transform.up * _distance;
+            audioSource?.PlayOneShot(shootSound);
         }
-        currentAmmo --;
-        if (currentAmmo <= 0) currentAmmo = 0;
-        textAmmo.text = $"Municion: {currentAmmo}/{maxAmmo}";
     }
+    // private void ShootProjectile()
+    // {
+    //     GameObject projectile = Instantiate(_projectilePrefab, _shootingPoint.position, Quaternion.identity); 
+    //     Rigidbody projectileRigidbody = null; 
+    //     if(projectile.GetComponent<Rigidbody>() != null)
+    //     {
+    //         projectileRigidbody = projectile.GetComponent<Rigidbody>();
+    //     }
+    //     currentAmmo --;
+    //     if (currentAmmo <= 0) currentAmmo = 0;
+    //     textAmmo.text = $"Municion: {currentAmmo}/{maxAmmo}";
+    // }
 
     void ReceivedInstanceProjectile(RemoteBulletData data) {
         GameObject projectile = Instantiate(_projectilePrefab, data.position, Quaternion.identity);

@@ -15,7 +15,7 @@ public static class ApiHelper {
         return JsonUtility.FromJson<SetStart>(json);     
     }
 
-    public static SetStart SetState(string value){
+    public static SetStart SetState(int value){
         HttpWebRequest  request = (HttpWebRequest) WebRequest.Create($"{URL}/setState/{value}");
         HttpWebResponse response =(HttpWebResponse)request.GetResponse();
         StreamReader reader = new StreamReader(response.GetResponseStream());

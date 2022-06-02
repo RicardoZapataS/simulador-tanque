@@ -12,7 +12,7 @@ public static class UserData {
             tankSize = 4,
             ammountBullet = 5,
             targetDistance = 1000,
-            TimeSimulator = "05:00"
+            TimeSimulator = "00:00"
         }
     #else
         null
