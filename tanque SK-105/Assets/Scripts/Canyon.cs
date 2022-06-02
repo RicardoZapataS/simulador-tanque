@@ -63,13 +63,22 @@ public class Canyon : MonoBehaviour {
             transform.Rotate(Vector3.forward * smooth * Time.deltaTime * y, Space.World);
     }
 
-    private void ShootProjectile() {
-        GameObject projectile = Instantiate(_projectilePrefab, _shootingPoint.position, Quaternion.identity);
-        if (projectile.TryGetComponent(out BulletController bulletController)) {
-            remoteInstantiate.InstanceGO(transform, UserData.BulletData);
-            bulletController.Init(transform, UserData.BulletData);
-            // projectileRigidbody.velocity = transform.up * _distance;
-            audioSource?.PlayOneShot(shootSound);
+    // private void ShootProjectile() {
+    //     GameObject projectile = Instantiate(_projectilePrefab, _shootingPoint.position, Quaternion.identity);
+    //     if (projectile.TryGetComponent(out BulletController bulletController)) {
+    //         remoteInstantiate.InstanceGO(transform, UserData.BulletData);
+    //         bulletController.Init(transform, UserData.BulletData);
+    //         // projectileRigidbody.velocity = transform.up * _distance;
+    //         audioSource?.PlayOneShot(shootSound);
+    //     }
+    // }
+     private void ShootProjectile()
+    {
+        GameObject projectile = Instantiate(_projectilePrefab, _shootingPoint.position, Quaternion.identity); 
+        Rigidbody projectileRigidbody = null; 
+        if(projectile.GetComponent<Rigidbody>() != null)
+        {
+            projectileRigidbody = projectile.GetComponent<Rigidbody>();
         }
         currentAmmo --;
         if (currentAmmo <= 0) currentAmmo = 0;
