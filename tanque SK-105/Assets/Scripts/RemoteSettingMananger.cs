@@ -54,7 +54,7 @@ public class RemoteSettingMananger : MonoBehaviour
             material.SetColor("_BaseColor", colorRGB);
         }
 
-        if (roomSetting.isRandomPosition == "1")
+        if (roomSetting.isRandomPosition == 1)
         {
             playerTankTransform.position = tankPlaces[Random.Range(0, tankPlaces.Length)].position;
         }

@@ -32,7 +32,7 @@ public class RemoteLoadingScene : MonoBehaviour {
         string state = "";
 
 #if !UNITY_EDITOR
-        while (state != "2" || string.IsNullOrEmpty(state)) {
+        while (state != States.Start || string.IsNullOrEmpty(state)) {
 #else
         if (!string.IsNullOrEmpty(state)) {
 #endif
@@ -45,7 +45,7 @@ public class RemoteLoadingScene : MonoBehaviour {
             }
             yield return new WaitForSeconds(1f);
         }
-        ApiHelper.SetLowState();
+        ApiHelper.SetState(States.Low);
         UserData.RoomSetting = ApiHelper.GetRoomSetting();
         SceneManager.LoadScene(1);
     }
