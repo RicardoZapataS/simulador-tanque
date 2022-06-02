@@ -1,12 +1,10 @@
 using System.Collections;
 using System.Globalization;
-using System.Runtime;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Random = UnityEngine.Random;
-using System.Runtime.CompilerServices;
 
 public class RoomManager : MonoBehaviour {
     [SerializeField] Transform tankPlayer;
@@ -50,8 +48,9 @@ public class RoomManager : MonoBehaviour {
         // Change the player distance
         if (settings.isRandomPosition != 1) { // Is random
             Transform newPos = tanksPositions[Random.Range(0, tanksPositions.Length - 1)];
-            tankPlayer.position = newPos.position;
-            tankPlayer.rotation = newPos.rotation;
+            tankPlayer.SetParent(newPos);
+            tankPlayer.position = Vector3.zero;
+            tankPlayer.rotation = Quaternion.Identity;
         }
 
         // Controll Time Text

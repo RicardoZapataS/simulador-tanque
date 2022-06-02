@@ -73,9 +73,11 @@ public class Canyon : MonoBehaviour {
             // projectileRigidbody.velocity = transform.up * _distance;
             audioSource?.PlayOneShot(shootSound);
         }
+        currentAmmo --;
+        if (currentAmmo <= 0) currentAmmo = 0;
+        textAmmo.text = $"Municion: {currentAmmo}/{maxAmmo}";
     }
-    // private void ShootProjectile()
-    // {
+    // private void ShootProjectile() {
     //     GameObject projectile = Instantiate(_projectilePrefab, _shootingPoint.position, Quaternion.identity); 
     //     Rigidbody projectileRigidbody = null; 
     //     if(projectile.GetComponent<Rigidbody>() != null)
