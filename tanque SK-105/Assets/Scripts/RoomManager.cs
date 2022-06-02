@@ -49,8 +49,7 @@ public class RoomManager : MonoBehaviour {
         if (settings.isRandomPosition != 1) { // Is random
             Transform newPos = tanksPositions[Random.Range(0, tanksPositions.Length - 1)];
             tankPlayer.SetParent(newPos);
-            tankPlayer.position = Vector3.zero;
-            tankPlayer.rotation = Quaternion.Identity;
+            tankPlayer.rotation = Quaternion.identity;
         }
 
         // Controll Time Text
