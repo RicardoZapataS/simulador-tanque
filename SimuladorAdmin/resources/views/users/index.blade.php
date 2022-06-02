@@ -44,7 +44,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            <a href="{{route('usuario.create')}}" class="btn btn-sm btn-secondary float-right">Nuevo administrador</a>
+                            <a href="{{route('usuario.create')}}" class="btn btn-sm btn-secondary float-right mt-3">Nuevo administrador</a>
                         </div>
                         <!-- /.card-body -->
                     </div>

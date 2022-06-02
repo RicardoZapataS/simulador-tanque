@@ -25,6 +25,11 @@ Sala de Simulacion
         <div class="card card-default">
             <div class="card-header">
                 <h3 class="card-title">Configuracion / Dificutad - {{ $defaultSettings }}</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -150,14 +155,48 @@ Sala de Simulacion
                     <!-- /.col -->
                 </div>
                 <!-- /.row -->
+                <div class="card-footer">
+                    <a id="sendForm" class="btn btn-sm btn-secondary float-right">Pausar simulacion</a>
+                </div>
 
             </div>
             <!-- /.card-body -->
-            <div class="card-footer">
-                <a id="sendForm" class="btn btn-sm btn-secondary float-right">Pausar simulacion</a>
+        </div>
+        <!-- SELECT2 EXAMPLE -->
+        <div class="card card-default">
+            <div class="card-header">
+                <h3 class="card-title">Disparos</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
             </div>
+            <!-- /.card-header -->
+            <div class="card-body d-flex flex-wrap" id="shootings_cards">
+                @foreach($room_shootings as $room_shooting)
+                    <div class="col-6" id="shooting-{{$room_shooting->id}}">
+                        <div class="card mx-1">
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <img class="card-img" src="{{$room_shooting->tag}}" alt="target">
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="d-flex flex-column justify-content-center m-0 h-100">
+                                        <h1 class="card-title"> <b>Impacto a objetivo: </b> @if($room_shooting->target != -1) {{$room_shooting->tar}} @else Fallo @endif </h1><br>
+                                        <h1 class="card-title"> <b>Zona de impacto: </b> @if($room_shooting->site_shooting != -1) {{$room_shooting->tag_name}} @else Fallo @endif </h1><br>
+                                        <h1 class="card-title"> <b>Tiempo de disparo: </b> {{$room_shooting->time}} segundos</h1><br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <!-- /.card-body -->
         </div>
         <!-- /.card -->
+
     </div>
 
 
@@ -183,13 +222,82 @@ Sala de Simulacion
             });
             function confirm() {
                 $.get("{{route('api.state')}}", {},
-                function(data, status) {
-                    // console.log(data)
-                    if(data.value == 4 || data.value == 1)
-                        $('#loader-contain').addClass( "hide" )
-                    else
-                        setTimeout(confirm, 1000);
-                });
+                    function(data, status) {
+                        // console.log(data)
+                        if(data.value == 4 || data.value == 1)
+                            $('#loader-contain').addClass( "hide" )
+                        else
+                            setTimeout(confirm, 1000);
+                    });
+            }
+            function GetShooting() {
+                $.get("{{route('api.getShooting')}}", {},
+                    function(data, status) {
+                        //console.log(data)
+                        $.each(data, function( index, value ) {
+                            let id= "#shooting-"+value.id
+                            console.log($(id).length)
+                            if(!$(id).length)  CreateShootingCard(value)
+                        });
+
+                        setTimeout(GetShooting, 1000);
+                    });
+            }
+            GetShooting();
+            function CreateShootingCard(data){
+                //console.log(data)
+                let id = data.id;
+                let tag = "";
+                let tar = "";
+                let tag_name = "";
+                switch (data.site_shooting){
+                    case 0:
+                        tag_name = "Oruga"
+                        tag = "{{asset('assets/img/targets/oruga.png')}}"
+                        break;
+                    case 1:
+                        tag_name = "Cañon"
+                        tag = "{{asset('assets/img/targets/canon.png')}}"
+                        break;
+                    case 2:
+                        tag_name = "Batea"
+                        tag = "{{asset('assets/img/targets/batea.png')}}"
+                        break;
+                    case 3:
+                       tag_name =  "Cabina"
+                        tag = "{{asset('assets/img/targets/cabina.png')}}"
+                        break;
+                }
+                switch (data.target){
+                    case 0:
+                        tar = "Primer objetivo";
+                            break;
+                    case 1:
+                        tar = "Segundo objetivo";
+                            break;
+                    case 2:
+                        tar = "Tercer objetivo";
+                            break;
+                }
+                let time = data.time;
+                $('#shootings_cards').prepend(`
+                  <div class="col-6" id="shooting-${id}">
+                        <div class="card mx-1">
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <img class="card-img" src="${tag}" alt="target">
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="d-flex flex-column justify-content-center m-0 h-100">
+                                        <h1 class="card-title"> <b>Impacto a objetivo: </b>${tar} </h1><br>
+                                        <h1 class="card-title"> <b>Zona de impacto: </b> ${tag_name} </h1><br>
+                                        <h1 class="card-title"> <b>Tiempo de disparo: </b> ${time} segundos</h1><br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `)
             }
         });
     </script>

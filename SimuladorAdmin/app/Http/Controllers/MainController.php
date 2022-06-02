@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RoomShooting;
 use Illuminate\Http\Request;
 use App\Models\Parameters;
 use App\Models\RoomSetting;
@@ -47,10 +48,12 @@ class MainController extends Controller
     {
         $room = Room::find($this->getParameter(3));
         $room_setting = RoomSetting::find($room->room_setting_id);
+        $room_shootings = $room->room_shootings;
+        //dd($room_shootings[0]->tar);
         $defaultSettings = DefaultSetting::where('room_setting_id', $room->room_setting_id)->get()->first()? DefaultSetting::where('room_setting_id', $room->room_setting_id)->get()->first()->name : "Personalizado";
         // dd($defaultSettings);
         $user = User::find($room->user_id);
-        return view('main.simulatorScreem', compact('room', 'room_setting', 'user', 'defaultSettings'));
+        return view('main.simulatorScreem', compact('room', 'room_setting', 'user', 'defaultSettings', 'room_shootings'));
     }
     private function setParameter($id, $value)
     {

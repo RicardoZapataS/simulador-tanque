@@ -31,4 +31,10 @@ public static class ApiHelper {
         string json = reader.ReadToEnd();
         return JsonUtility.FromJson<RoomSetting>(json);     
     }
+
+    public static void ShootingTarget(string time, string site_shooting, string target){
+        HttpWebRequest  request = (HttpWebRequest) WebRequest.Create($"{URL}/shootingTarget/{time}/{site_shooting}/{target}");
+        HttpWebResponse response =(HttpWebResponse)request.GetResponse();
+        StreamReader reader = new StreamReader(response.GetResponseStream());
+    }
 }
