@@ -1292,7 +1292,7 @@ MonoBehaviour:
     updated_at: 
   timeText: {fileID: 640609664}
   pauseMenu: {fileID: 1164666576}
-  pauseText: {fileID: 0}
+  pauseText: {fileID: 1235625590}
   waitingTime: 1
   currentTime: 0
   maxTime: 0
