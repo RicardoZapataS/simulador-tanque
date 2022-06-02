@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Globalization;
+using System.Reflection;
 using System.Runtime;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -24,7 +25,11 @@ public class RoomManager : MonoBehaviour {
 
     Color tankColor;
     Vector3 tankPosition;
+    [HideInInspector] public int currentTime;
+    public static RoomManager Main;
+
     void Awake() {
+        Main = this;
         settings = UserData.RoomSetting;
         // Settings from server
         // 
@@ -80,7 +85,7 @@ public class RoomManager : MonoBehaviour {
     IEnumerator GameTimer() {
         string[] time = settings.TimeSimulator.Split(':');
         (int min, int secs) = (int.Parse(time[0], CultureInfo.InvariantCulture), int.Parse(time[1], CultureInfo.InvariantCulture));
-        int currentTime, maxTime;
+        int maxTime;
         currentTime = maxTime = (min * 60) + secs;
         float maxSize = timeLineFill.rect.width;
 

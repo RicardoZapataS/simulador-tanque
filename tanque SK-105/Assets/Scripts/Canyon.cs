@@ -93,18 +93,18 @@ public class Canyon : MonoBehaviour {
         transform.rotation = target;
     }
 
-    public void Inpacted (string tag) {
-        print(tag);
-        switch (tag) {
-            case "Cabina":
-                break;
-            case "Canon":
-                break;
-            case "Batea":
-                break;
-            case "Oruga":
-                break;
-        }
+    public void Impacted (string tag, string name) {
+        print($"{tag} - {name}");
+
+        int tagInt = tag switch {
+            "Oruga" => 0,
+            "Canon" => 1,
+            "Batea" => 2,
+            "Cabina" => 3,
+            _ => -1
+        };
+
+        ApiHelper.ShootingTarget($"{RoomManager.Main.currentTime}", tagInt, name.Split('_')[1]);
         
     }
 }
