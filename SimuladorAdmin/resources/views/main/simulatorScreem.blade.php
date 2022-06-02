@@ -2,11 +2,12 @@
 
 @section('route')
     <li class="breadcrumb-item"><a href="/">Inicio</a></li>
-    <li class="breadcrumb-item active">Simulacion</li>
+    <li class="breadcrumb-item"><a href="/">Configuracion de sala</a></li>
+    <li class="breadcrumb-item active">Sala de Simulacion</li>
 @endsection
 
 @section('name')
-    Simulacion
+Sala de Simulacion
 @endsection
 
 @section('content')
@@ -184,7 +185,7 @@
                 $.get("{{route('api.state')}}", {},
                 function(data, status) {
                     // console.log(data)
-                    if(data.value == 1)
+                    if(data.value == 4 || data.value == 1)
                         $('#loader-contain').addClass( "hide" )
                     else
                         setTimeout(confirm, 1000);

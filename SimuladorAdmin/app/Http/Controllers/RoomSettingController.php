@@ -27,10 +27,10 @@ class RoomSettingController extends Controller
         $state = Parameters::find(1);
         return $state;
     }
-    public function SetLowState()
+    public function SetState($value)
     {
         $state = Parameters::find(1);
-        $state->value = 1;
+        $state->value = $value;
         $state->save();
         return $state;
     }

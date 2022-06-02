@@ -20,7 +20,7 @@ public class RemoteLoadingScene : MonoBehaviour {
     [SerializeField] List<string> tips;
 
     void Start() {
-        ApiHelper.SetLowState();
+        ApiHelper.SetState(States.Low);
         TCPManager.CreateTCPInstance();
         StartCoroutine(GenerateTips());
         StartCoroutine(LoadScene());
