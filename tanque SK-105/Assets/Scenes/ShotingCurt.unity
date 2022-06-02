@@ -405,7 +405,7 @@ GameObject:
   - component: {fileID: 128353040}
   - component: {fileID: 128353041}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Cube_0
   m_TagString: Cabina
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -449,7 +449,7 @@ GameObject:
   - component: {fileID: 174294262}
   - component: {fileID: 174294263}
   m_Layer: 0
-  m_Name: Cube (2)
+  m_Name: Cube_0
   m_TagString: Batea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -491,7 +491,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 89fc23cad0b63894f8b9e938c08ab796, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 89fc23cad0b63894f8b9e938c08ab796, type: 3}
       propertyPath: m_LocalScale.x
@@ -555,7 +555,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 97ace7ccea2b0b34b9666bd2797da15e, type: 2}
     - target: {fileID: 919132149155446097, guid: 89fc23cad0b63894f8b9e938c08ab796, type: 3}
       propertyPath: m_Name
-      value: TankCorrected (2)
+      value: TankCorrected_0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89fc23cad0b63894f8b9e938c08ab796, type: 3}
@@ -1078,7 +1078,7 @@ GameObject:
   - component: {fileID: 548252096}
   - component: {fileID: 548252097}
   m_Layer: 0
-  m_Name: Cube (3)
+  m_Name: Cube_0
   m_TagString: Oruga
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1122,7 +1122,7 @@ GameObject:
   - component: {fileID: 574873886}
   - component: {fileID: 574873887}
   m_Layer: 0
-  m_Name: Cube (4)
+  m_Name: Cube_1
   m_TagString: Oruga
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1166,7 +1166,7 @@ GameObject:
   - component: {fileID: 590274292}
   - component: {fileID: 590274293}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Cube_1
   m_TagString: Canon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1288,7 +1288,7 @@ GameObject:
   - component: {fileID: 667132138}
   - component: {fileID: 667132139}
   m_Layer: 0
-  m_Name: Cube (5)
+  m_Name: Cube_1
   m_TagString: Oruga
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1332,7 +1332,7 @@ GameObject:
   - component: {fileID: 704795639}
   - component: {fileID: 704795640}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Cube_0
   m_TagString: Canon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1376,7 +1376,7 @@ GameObject:
   - component: {fileID: 747800897}
   - component: {fileID: 747800898}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Cube_1
   m_TagString: Cabina
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1420,7 +1420,7 @@ GameObject:
   - component: {fileID: 832216054}
   - component: {fileID: 832216055}
   m_Layer: 0
-  m_Name: Cube (3)
+  m_Name: Cube_1
   m_TagString: Oruga
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1576,6 +1576,7 @@ MonoBehaviour:
   timeLineFillImage: {fileID: 428993244}
   alertColor: {r: 0.8490566, g: 0.75475913, b: 0.3484336, a: 1}
   dangerColor: {r: 0.8490566, g: 0.19498508, b: 0.18823424, a: 1}
+  currentTime: 0
 --- !u!4 &1026916867
 Transform:
   m_ObjectHideFlags: 0
@@ -1739,7 +1740,7 @@ GameObject:
   - component: {fileID: 1121947381}
   - component: {fileID: 1121947382}
   m_Layer: 0
-  m_Name: Cube (3)
+  m_Name: Cube_2
   m_TagString: Oruga
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1957,7 +1958,7 @@ GameObject:
   - component: {fileID: 1217408168}
   - component: {fileID: 1217408169}
   m_Layer: 0
-  m_Name: Cube (5)
+  m_Name: Cube_2
   m_TagString: Oruga
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2376,7 +2377,7 @@ GameObject:
   - component: {fileID: 1597096339}
   - component: {fileID: 1597096340}
   m_Layer: 0
-  m_Name: Cube (4)
+  m_Name: Cube_2
   m_TagString: Oruga
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2420,7 +2421,7 @@ GameObject:
   - component: {fileID: 1607686280}
   - component: {fileID: 1607686281}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Cube_2
   m_TagString: Canon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2667,7 +2668,7 @@ GameObject:
   - component: {fileID: 1728083849}
   - component: {fileID: 1728083850}
   m_Layer: 0
-  m_Name: Cube (5)
+  m_Name: Cube_0
   m_TagString: Oruga
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2711,7 +2712,7 @@ GameObject:
   - component: {fileID: 1760594709}
   - component: {fileID: 1760594710}
   m_Layer: 0
-  m_Name: Cube (2)
+  m_Name: Cube_1
   m_TagString: Batea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2872,7 +2873,7 @@ GameObject:
   - component: {fileID: 1833674004}
   - component: {fileID: 1833674005}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Cube_2
   m_TagString: Cabina
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2926,7 +2927,7 @@ GameObject:
   - component: {fileID: 1900509393}
   - component: {fileID: 1900509394}
   m_Layer: 0
-  m_Name: Cube (2)
+  m_Name: Cube_2
   m_TagString: Batea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3101,7 +3102,7 @@ GameObject:
   - component: {fileID: 1983179586}
   - component: {fileID: 1983179587}
   m_Layer: 0
-  m_Name: Cube (4)
+  m_Name: Cube_0
   m_TagString: Oruga
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3207,7 +3208,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 97ace7ccea2b0b34b9666bd2797da15e, type: 2}
     - target: {fileID: 919132149155446097, guid: 89fc23cad0b63894f8b9e938c08ab796, type: 3}
       propertyPath: m_Name
-      value: TankCorrected (3)
+      value: TankCorrected_2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89fc23cad0b63894f8b9e938c08ab796, type: 3}
@@ -3225,7 +3226,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 89fc23cad0b63894f8b9e938c08ab796, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 89fc23cad0b63894f8b9e938c08ab796, type: 3}
       propertyPath: m_LocalScale.x
@@ -3289,7 +3290,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 97ace7ccea2b0b34b9666bd2797da15e, type: 2}
     - target: {fileID: 919132149155446097, guid: 89fc23cad0b63894f8b9e938c08ab796, type: 3}
       propertyPath: m_Name
-      value: TankCorrected (1)
+      value: TankCorrected_1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89fc23cad0b63894f8b9e938c08ab796, type: 3}
@@ -3368,8 +3369,8 @@ Transform:
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children:
   - {fileID: 7050248306298988286}
-  - {fileID: 2103428951}
   - {fileID: 203905691}
+  - {fileID: 2103428951}
   - {fileID: 2019564717}
   m_Father: {fileID: 0}
   m_RootOrder: 2
