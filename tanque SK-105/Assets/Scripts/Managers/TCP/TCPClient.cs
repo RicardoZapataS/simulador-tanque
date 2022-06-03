@@ -9,7 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 public class TCPClient : TCPImplementation {
-    TcpClient TcpClient;
+    TcpClient client;
     NetworkStream Stream;
     Thread ReadThread;
     StreamWriter Writer;
@@ -21,9 +21,9 @@ public class TCPClient : TCPImplementation {
 
     public bool Connect(string direccionIp, int puerto) {
         try {
-            TcpClient = new TcpClient();
-            TcpClient.Connect(IPAddress.Parse(direccionIp), puerto);
-            Stream = TcpClient.GetStream();
+            client = new TcpClient();
+            client.Connect(IPAddress.Parse(direccionIp), puerto);
+            Stream = client.GetStream();
             Writer = new StreamWriter(Stream);
             ReadThread = new Thread(Listen);
             ReadThread.Start();
