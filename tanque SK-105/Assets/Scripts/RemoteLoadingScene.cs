@@ -33,7 +33,7 @@ public class RemoteLoadingScene : MonoBehaviour {
         int state = -1;
 
 #if !UNITY_EDITOR
-        while (state != States.Start || state == -1) {
+        while (state != (int) States.Start || state == -1) {
 #else
         if (state == -1) {
 #endif

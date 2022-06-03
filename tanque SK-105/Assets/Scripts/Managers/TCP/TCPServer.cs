@@ -40,10 +40,10 @@ public class TCPServer : TCPImplementation
     }
 
     void listen() {
+        sock.Listen(100);
+        clientSock = sock.Accept();
         do {
             try {
-                sock.Listen(100);
-                clientSock = sock.Accept();
                 byte[] clientData = new byte[4096];
                 clientSock.Receive(clientData);
                 string getStr = Encoding.ASCII.GetString(clientData);
