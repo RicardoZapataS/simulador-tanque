@@ -24,4 +24,5 @@ public enum States {
     ConfirmPause = 4,
     Unpause = 5,
     EndSimulation = 6,
+    ConfirmEndSimulation = 7,
 }

@@ -8,7 +8,7 @@ namespace BeardedManStudios.Forge.Networking.Generated
 	[GeneratedRPCVariableNames("{\"types\":[[]]")]
 	public abstract partial class TankBehavior : NetworkBehavior
 	{
-		public const byte RPC_SHOOT = 0 + 5;
+		public const byte RPC_END_GAME = 0 + 5;
 		
 		public TankNetworkObject networkObject = null;
 
@@ -22,7 +22,7 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			networkObject.AttachedBehavior = this;
 
 			base.SetupHelperRpcs(networkObject);
-			networkObject.RegisterRpc("Shoot", Shoot);
+			networkObject.RegisterRpc("EndGame", EndGame);
 
 			networkObject.onDestroy += DestroyGameObject;
 
@@ -102,7 +102,7 @@ namespace BeardedManStudios.Forge.Networking.Generated
 		/// <summary>
 		/// Arguments:
 		/// </summary>
-		public abstract void Shoot(RpcArgs args);
+		public abstract void EndGame(RpcArgs args);
 
 		// DO NOT TOUCH, THIS GETS GENERATED PLEASE EXTEND THIS CLASS IF YOU WISH TO HAVE CUSTOM CODE ADDITIONS
 	}

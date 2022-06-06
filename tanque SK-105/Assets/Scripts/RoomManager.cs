@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Globalization;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 using Random = UnityEngine.Random;
+using UnityEngine.SceneManagement;
 
 public class RoomManager : MonoBehaviour {
     [SerializeField] Transform tankPlayer;
@@ -44,7 +43,7 @@ public class RoomManager : MonoBehaviour {
         foreach (var tankObjetive in tankObjetives) {
             print(tankObjetive.localScale);
             print(settings.tankSize);
-            tankObjetive.localScale = Vector3.one * (0.04f * settings.tankSize);
+            tankObjetive.localScale = Vector3.one * settings.tankSize;
         }
 
         // Change the player distance
@@ -83,6 +82,9 @@ public class RoomManager : MonoBehaviour {
                 endGame = true;
                 pauseMenu.SetActive(true);
                 pauseText.text = "La simulacion a finalizado";
+            } else if (state == (int) States.ConfirmEndSimulation) {
+                // confirmamos el cambio de scena
+                SceneManager.LoadScene(0);
             }
         }
     }
@@ -100,7 +102,8 @@ public class RoomManager : MonoBehaviour {
         } else {
             string[] time = settings.TimeSimulator.Split(':');
             (int min, int secs) = (int.Parse(time[0], CultureInfo.InvariantCulture), int.Parse(time[1], CultureInfo.InvariantCulture));
-            currentTime = maxTime = (min * 60) + secs;
+            currentTime = 0;
+            maxTime = (min * 60) + secs;
 
             int alertPercentage = (60 * maxTime) / 100; // 40% es una advertencia de color
             int dangerPercentage = (30 * maxTime) / 100; // 20% indica peligro en el tiempo restante
@@ -127,9 +130,17 @@ public class RoomManager : MonoBehaviour {
         StartCoroutine(EndSimulation());
     }
 
+    public void EndGame() {
+        endGame = true;
+        StartCoroutine(EndSimulation());
+    }
+
     // TODO: pantalla final que espera un estado para pasar al menu
     // Pantall de "Simulacion Finalizada"
     IEnumerator EndSimulation () {
-        yield return null;
+        pauseMenu.SetActive(true);
+        pauseText.text = "La simulacion a finalizado";
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene(0);
     }
 }

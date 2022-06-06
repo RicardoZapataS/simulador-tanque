@@ -447,7 +447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f451f7381dc859467a0d8d68e7d80b58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isServer: 1
+  isServer: 0
   loadingScreen: {fileID: 595489221}
   alphaCanvas: {fileID: 106453361}
   loadingCanvasGroup: {fileID: 991519939}
@@ -464,7 +464,7 @@ MonoBehaviour:
   - "No hay que ir para atr\xE1s ni para darse impulso"
   - "El hombre que se levanta es a\xFAn m\xE1s grande que el que no ha ca\xEDdo"
   - 'Mejor es morir de una vez que vivir temiendo la vida. '
-  debug: 1
+  debug: 0
 --- !u!1 &227238778
 GameObject:
   m_ObjectHideFlags: 0

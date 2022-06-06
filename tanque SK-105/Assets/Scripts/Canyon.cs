@@ -6,7 +6,6 @@ using BeardedManStudios.Forge.Networking;
 [RequireComponent(typeof(AudioSource))]
 public class Canyon : TankBehavior {
 
-    [SerializeField] GameObject uiCanvas;
     [SerializeField] GameObject uiHostCanvas;
     [SerializeField] TextMeshProUGUI textAmmo;
     [SerializeField] GameObject mainCamera;
@@ -34,9 +33,8 @@ public class Canyon : TankBehavior {
         mainCamera.SetActive(TCPManager.Main.isServer);
         secondaryCamera.SetActive(!TCPManager.Main.isServer);
 
-        uiCanvas.SetActive(TCPManager.Main.isServer);
-        miraGameObject.SetActive(TCPManager.Main.isServer);
-        uiHostCanvas.SetActive(!TCPManager.Main.isServer);
+        miraGameObject.SetActive(!TCPManager.Main.isServer);
+        textAmmo.gameObject.SetActive(TCPManager.Main.isServer);
         currentAmmo = maxAmmo = setting.ammountBullet;
         textAmmo.text = $"Municion: {currentAmmo}/{maxAmmo}";
 
@@ -51,7 +49,8 @@ public class Canyon : TankBehavior {
 			transform.rotation = networkObject.rotation;
         } else {
             if (Input.GetKeyDown(KeyCode.Space) && currentAmmo > 0 && currentAmmo <= maxAmmo)
-                networkObject.SendRpc(RPC_SHOOT, Receivers.All);
+                Shoot();
+                // networkObject.SendRpc(RPC_SHOOT, Receivers.All);
             else if (Input.GetKeyDown(KeyCode.Space) && currentAmmo <= 0)
                 audioSource?.PlayOneShot(outOfAmmo);
 
@@ -70,7 +69,7 @@ public class Canyon : TankBehavior {
         }
     }
 
-    public override void Shoot(RpcArgs args) {
+    void Shoot() {
         GameObject projectile = Instantiate(_projectilePrefab, _shootingPoint.position, Quaternion.identity);
         if (projectile.TryGetComponent(out BulletController bulletController)) {
             bulletController.Init(transform, UserData.BulletData);
@@ -78,9 +77,16 @@ public class Canyon : TankBehavior {
             audioSource?.PlayOneShot(shootSound);
         }
         currentAmmo --;
-        if (currentAmmo <= 0) currentAmmo = 0;
+        if (currentAmmo <= 0) {
+            currentAmmo = 0;
+            Invoke("InternalEndGame", 10f);
+        }
         textAmmo.text = $"Municion: {currentAmmo}/{maxAmmo}";
     }
+
+    void InternalEndGame() => networkObject.SendRpc(RPC_END_GAME, Receivers.All);
+
+    public override void EndGame(RpcArgs args) => RoomManager.Main.EndGame();
 
     private void OnDrawGizmos() {
         Debug.DrawLine(transform.position, transform.position + transform.up * _distance);
@@ -102,7 +108,9 @@ public class Canyon : TankBehavior {
             _ => -1
         };
 
-        ApiHelper.ShootingTarget($"{RoomManager.Main.currentTime}", tagInt, name.Split('_')[1]);
+        string correctName = name.Contains("_") || !string.IsNullOrEmpty(name) ?  name.Split('_')[1] : "-1";
+
+        ApiHelper.ShootingTarget($"{RoomManager.Main.currentTime}", tagInt, correctName);
         
     }
 }

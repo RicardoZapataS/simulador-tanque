@@ -4,7 +4,7 @@ using System.IO;
 
 public static class ApiHelper {
 
-    public const string URL = "https://asa.inventiva.com.bo/api";
+    public const string URL = "https://simulador-tanque.wasoridevs.com/api";
     // public const string URL = "http://127.0.0.1:8000/api";
     // public const string URL = "http://192.168.120.7/api";
 
@@ -35,7 +35,9 @@ public static class ApiHelper {
     }
 
     public static void ShootingTarget(string time, int site_shooting, string target){
-        HttpWebRequest  request = (HttpWebRequest) WebRequest.Create($"{URL}/shootingTarget/{time}/{site_shooting}/{target}");
+        string url = $"{URL}/shootingTarget/{time}/{site_shooting}/{target}";
+        Debug.Log(url);
+        HttpWebRequest  request = (HttpWebRequest) WebRequest.Create(url);
         HttpWebResponse response =(HttpWebResponse)request.GetResponse();
         StreamReader reader = new StreamReader(response.GetResponseStream());
     }

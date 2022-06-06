@@ -59,10 +59,10 @@ public class TCPManager {
                 port = 15940;
         else
             port = 15940;
-
-        // if (args.Length >= 2)
-        //     isServer = Convert.ToBoolean(args[2]);
-
+#if !UNITY_EDITOR
+        if (args.Length >= 2)
+            isServer = Convert.ToBoolean(args[2]);
+#endif
         // // Connect
         Debug.LogWarning("A network manager was not provided, generating a new one instead");
         networkManager = new GameObject("Network Manager");

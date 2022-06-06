@@ -9,6 +9,7 @@ public class BulletController : MonoBehaviour {
     [SerializeField] GameObject explosionPrefab;
 
     Rigidbody rb;
+    string otherTag = string.Empty, otherName = string.Empty;
 
     string tagCollision = "";
 
@@ -21,19 +22,21 @@ public class BulletController : MonoBehaviour {
 
     void OnTriggerEnter(Collider other) {
         print(other.name);
-        Canyon.singletone.Impacted(other.tag, other.name);
+        otherName = other.name;
+        otherTag = other.tag;
         DestroyMe();
     }
 
     void OnCollisionEnter (Collision col) {
-        Collider other = col.collider;
-        print(other.name);
-        Canyon.singletone.Impacted(other.tag, other.name);
+        otherName = col.collider.name;
+        otherTag = col.collider.tag;
+        print(col.collider.name);
         DestroyMe();
     }
 
     void DestroyMe() {
         print("Destroy bullet");
+        Canyon.singletone.Impacted(otherTag, otherName);
         Destroy(Instantiate(explosionPrefab, transform.position, Quaternion.identity), 5f);
         Destroy(gameObject);
     }
