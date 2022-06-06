@@ -27,6 +27,7 @@ public class InstanceSync : MonoBehaviour {
     }
 
     public void InstanceGO(Transform t, BulletData d) {
+        if (!tcp.isServer) throw new Exception("This game instance is not a Host of Tcp Connection");
         RemoteBulletData data = new RemoteBulletData () {
             typeBullet = d.typeBullet,
             initialVelocity = d.initialVelocity,

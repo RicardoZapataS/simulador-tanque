@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class ConfigController : MonoBehaviour {
@@ -24,4 +22,7 @@ public class ConfigController : MonoBehaviour {
         });
     }
 
+	private void OnApplicationQuit() {
+        TCPManager.Main.Disconnect();
+	}
 }

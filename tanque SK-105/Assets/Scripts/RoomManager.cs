@@ -19,13 +19,15 @@ public class RoomManager : MonoBehaviour {
     [Header("UI")]
     [SerializeField] GameObject pauseMenu;
     [SerializeField] TextMeshProUGUI pauseText;
-    [SerializeField] float waitingTime = 1;
+    [SerializeField] float waitingTime = 2f;
+    [Header("Debug Section")]
+    [SerializeField] bool debug;
 
 
     Color tankColor;
     [HideInInspector] public int currentTime, maxTime;
-    [HideInInspector] public bool endGame = false;
-    [HideInInspector] public bool pauseGame = false;
+    public bool endGame = false;
+    public bool pauseGame = false;
     public static RoomManager Main;
 
     void Awake() {
@@ -63,10 +65,9 @@ public class RoomManager : MonoBehaviour {
         StartCoroutine(pause());
     } 
     private IEnumerator pause(){
-        int state = -1;
-        while(true){
+        while (true){
             yield return new WaitForSeconds(waitingTime);
-            state = int.Parse(ApiHelper.LoadState().value, CultureInfo.InvariantCulture); 
+            int state = int.Parse(ApiHelper.LoadState().value, CultureInfo.InvariantCulture);
             if (state == (int) States.Pause) {
                 pauseGame = true;
                 ApiHelper.SetState((int) States.ConfirmPause); 

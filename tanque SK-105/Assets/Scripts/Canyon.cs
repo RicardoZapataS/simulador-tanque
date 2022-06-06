@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using BeardedManStudios.Forge.Networking.Generated;
+using BeardedManStudios.Forge.Networking;
 
-[RequireComponent(typeof(InstanceSync))]
-[RequireComponent(typeof(TransformSync))]
 [RequireComponent(typeof(AudioSource))]
-public class Canyon : MonoBehaviour {
+public class Canyon : TankBehavior {
 
     [SerializeField] GameObject uiCanvas;
     [SerializeField] GameObject uiHostCanvas;
@@ -24,7 +22,6 @@ public class Canyon : MonoBehaviour {
 
     int currentAmmo, maxAmmo;
     AudioSource audioSource;
-    InstanceSync remoteInstantiate;
 
     RoomSetting setting;
 
@@ -36,39 +33,46 @@ public class Canyon : MonoBehaviour {
         audioSource = GetComponent<AudioSource>();
         mainCamera.SetActive(TCPManager.Main.isServer);
         secondaryCamera.SetActive(!TCPManager.Main.isServer);
-        remoteInstantiate = GetComponent<InstanceSync>();
 
-        remoteInstantiate.onRemoteInstance += ReceivedInstanceProjectile;
-
-        uiCanvas.SetActive(!TCPManager.Main.isServer);
-        miraGameObject.SetActive(!TCPManager.Main.isServer);
-        uiHostCanvas.SetActive(TCPManager.Main.isServer);
+        uiCanvas.SetActive(TCPManager.Main.isServer);
+        miraGameObject.SetActive(TCPManager.Main.isServer);
+        uiHostCanvas.SetActive(!TCPManager.Main.isServer);
         currentAmmo = maxAmmo = setting.ammountBullet;
         textAmmo.text = $"Municion: {currentAmmo}/{maxAmmo}";
+
+		NetworkObject.Flush(TCPManager.Main.netWorker);
     }
 
     private void Update() {
-        if (!TCPManager.Main.isServer || RoomManager.Main.endGame || RoomManager.Main.pauseGame) return;
-        if (Input.GetKeyDown(KeyCode.Space) && currentAmmo > 0 && currentAmmo <= maxAmmo)
-            ShootProjectile();
-        else if (Input.GetKeyDown(KeyCode.Space) && currentAmmo <= 0)
-            audioSource?.PlayOneShot(outOfAmmo);
+        if (RoomManager.Main.endGame || RoomManager.Main.pauseGame) return;
+        if (networkObject == null) return;
+		if (!networkObject.IsOwner) {
+            transform.position = networkObject.position;
+			transform.rotation = networkObject.rotation;
+        } else {
+            if (Input.GetKeyDown(KeyCode.Space) && currentAmmo > 0 && currentAmmo <= maxAmmo)
+                networkObject.SendRpc(RPC_SHOOT, Receivers.All);
+            else if (Input.GetKeyDown(KeyCode.Space) && currentAmmo <= 0)
+                audioSource?.PlayOneShot(outOfAmmo);
 
-        float x = Input.GetAxis("Horizontal");
+            float x = Input.GetAxis("Horizontal");
 
-        if (x != 0)
-            transform.Rotate(Vector3.up * smooth * Time.deltaTime * x, Space.World);
+            if (x != 0)
+                transform.Rotate(Vector3.up * smooth * Time.deltaTime * x, Space.World);
 
-        float y = Input.GetAxis("Vertical");
+            float y = Input.GetAxis("Vertical");
 
-        if (y != 0)
-            transform.Rotate(Vector3.forward * smooth * Time.deltaTime * y, Space.World);
+            if (y != 0)
+                transform.Rotate(Vector3.forward * smooth * Time.deltaTime * y, Space.World);
+
+            networkObject.position = transform.position;
+            networkObject.rotation = transform.rotation;
+        }
     }
 
-    private void ShootProjectile() {
+    public override void Shoot(RpcArgs args) {
         GameObject projectile = Instantiate(_projectilePrefab, _shootingPoint.position, Quaternion.identity);
         if (projectile.TryGetComponent(out BulletController bulletController)) {
-            remoteInstantiate.InstanceGO(transform, UserData.BulletData);
             bulletController.Init(transform, UserData.BulletData);
             // projectileRigidbody.velocity = transform.up * _distance;
             audioSource?.PlayOneShot(shootSound);
@@ -76,26 +80,6 @@ public class Canyon : MonoBehaviour {
         currentAmmo --;
         if (currentAmmo <= 0) currentAmmo = 0;
         textAmmo.text = $"Municion: {currentAmmo}/{maxAmmo}";
-    }
-    // private void ShootProjectile() {
-    //     GameObject projectile = Instantiate(_projectilePrefab, _shootingPoint.position, Quaternion.identity); 
-    //     Rigidbody projectileRigidbody = null; 
-    //     if(projectile.GetComponent<Rigidbody>() != null)
-    //     {
-    //         projectileRigidbody = projectile.GetComponent<Rigidbody>();
-    //     }
-    //     currentAmmo --;
-    //     if (currentAmmo <= 0) currentAmmo = 0;
-    //     textAmmo.text = $"Municion: {currentAmmo}/{maxAmmo}";
-    // }
-
-    void ReceivedInstanceProjectile(RemoteBulletData data) {
-        GameObject projectile = Instantiate(_projectilePrefab, data.position, Quaternion.identity);
-        if (projectile.TryGetComponent(out BulletController bulletController)) {
-            bulletController.Init(transform, data);
-            // projectileRigidbody.velocity = transform.up * _distance;
-            audioSource?.PlayOneShot(shootSound);
-        }
     }
 
     private void OnDrawGizmos() {
@@ -107,6 +91,7 @@ public class Canyon : MonoBehaviour {
     }
 
     public void Impacted (string tag, string name) {
+        if (!TCPManager.Main.isServer) return;
         print($"{tag} - {name}");
 
         int tagInt = tag switch {

@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 2121576159361518491}
   - component: {fileID: 5311258664347724639}
   - component: {fileID: 5086014169841997105}
-  - component: {fileID: -8280405679204577870}
   m_Layer: 0
   m_Name: municion
   m_TagString: Untagged
@@ -126,22 +125,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8120d03d722ded8c8be8bf61114b45f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifeTime: 15
   bulletData:
     typeBullet: 0
     initialVelocity: 0
     weight: 0
   explosionPrefab: {fileID: 100000, guid: 15ca5b8fa431dc04291a79cadcd19874, type: 3}
---- !u!114 &-8280405679204577870
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1692934720675588218}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa400fba09e85edae841a03cbe952328, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textPos: {fileID: 0}
-  textRot: {fileID: 0}

@@ -14,15 +14,18 @@ using System.Globalization;
 ///
 public class RemoteLoadingScene : MonoBehaviour {
 
+    [SerializeField] bool isServer;
     [SerializeField] GameObject loadingScreen;
     [SerializeField] CanvasGroup alphaCanvas, loadingCanvasGroup;
     [SerializeField] TextMeshProUGUI tipText;
     [SerializeField] Vector2 timeBetweenTips;
     [SerializeField] List<string> tips;
+    [Header("Debug")]
+    [SerializeField] bool debug;
 
     void Start() {
-        ApiHelper.SetState((int) States.Low);
-        TCPManager.CreateTCPInstance();
+        // ApiHelper.SetState((int) States.Low);
+        TCPManager.CreateTCPInstance(isServer);
         StartCoroutine(GenerateTips());
         StartCoroutine(LoadScene());
     }
@@ -32,22 +35,21 @@ public class RemoteLoadingScene : MonoBehaviour {
         SetStart stateResponse = null;
         int state = -1;
 
-#if !UNITY_EDITOR
-        while (state != (int) States.Start || state == -1) {
-#else
-        if (state == -1) {
-#endif
-            try {
-                stateResponse = ApiHelper.LoadState();
-                state = int.Parse(stateResponse.value, CultureInfo.InvariantCulture);
-                print($"Calling API \"{state}\"");
-            } catch (Exception _e) {
-                state = -1;
+        if (!debug) {
+            while (state != (int) States.Start || state == -1) {
+                try {
+                    stateResponse = ApiHelper.LoadState();
+                    state = int.Parse(stateResponse.value, CultureInfo.InvariantCulture);
+                    print($"Calling API \"{state}\"");
+                } catch (Exception _e) {
+                    state = -1;
+                }
+                yield return new WaitForSeconds(1f);
             }
-            yield return new WaitForSeconds(1f);
+            ApiHelper.SetState((int) States.Low);
+            UserData.RoomSetting = ApiHelper.GetRoomSetting();
         }
-        ApiHelper.SetState((int) States.Low);
-        UserData.RoomSetting = ApiHelper.GetRoomSetting();
+        print($"IsServer: {TCPManager.Main.isServer}");
         SceneManager.LoadScene(1);
     }
 
