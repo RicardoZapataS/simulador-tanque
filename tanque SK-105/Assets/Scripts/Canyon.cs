@@ -168,8 +168,9 @@ public class Canyon : TankBehavior
             "Cabina" => 3,
             _ => -1
         };
-        CanvaImage.sprite = TargetTextures[tagInt == -1 ? 4 : tagInt];
-        Debug.Log("Target " + (tagInt == -1 ? 5 : tagInt + 1).ToString());
+        CanvaImage.sprite = TargetTextures[tagInt == -1 ? 5 : tagInt];
+        Debug.Log("TargetO " + (tagInt).ToString());
+        Debug.Log("Target " + (tagInt == -1 ? 5 : tagInt).ToString());
         string correctName = name.Contains("_") || !string.IsNullOrEmpty(name) ? name.Split('_')[1] : "-1";
 
         ApiHelper.ShootingTarget($"{RoomManager.Main.currentTime}",  tagInt, correctName);

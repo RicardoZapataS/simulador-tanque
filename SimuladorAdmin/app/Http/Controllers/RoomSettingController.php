@@ -15,8 +15,9 @@ class RoomSettingController extends Controller
     public function GetRoomSettings()
     {
         $room = Room::find($this->getParameter(LATEST_ROOM_IN_DATABASE));
-        $room_setting = RoomSetting::find($room->room_setting_id);
-        return $room_setting;
+        $array = RoomSetting::find($room->room_setting_id)->toArray();
+        $array["selectedSceneName"] = RoomSetting::find($room->room_setting_id)->terrain->value;
+        return $array;
     }
     public function GetRoomSetting(RoomSetting $roomSetting)
     {

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Terrain;
+use App\Models\Terrain;
 use Illuminate\Http\Request;
 
 class TerrainController extends Controller
@@ -41,7 +41,7 @@ class TerrainController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Terrain  $terrain
+     * @param  \App\Models\Terrain  $terrain
      * @return \Illuminate\Http\Response
      */
     public function show(Terrain $terrain)
@@ -52,7 +52,7 @@ class TerrainController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Terrain  $terrain
+     * @param  \App\Models\Terrain  $terrain
      * @return \Illuminate\Http\Response
      */
     public function edit(Terrain $terrain)
@@ -64,7 +64,7 @@ class TerrainController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Terrain  $terrain
+     * @param  \App\Models\Terrain  $terrain
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Terrain $terrain)
@@ -75,7 +75,7 @@ class TerrainController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Terrain  $terrain
+     * @param  \App\Models\Terrain  $terrain
      * @return \Illuminate\Http\Response
      */
     public function destroy(Terrain $terrain)

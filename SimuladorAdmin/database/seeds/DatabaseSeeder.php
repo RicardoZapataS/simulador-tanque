@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(UserSeeder::class);
+        $this->call(TerrainSeeder::class);
         $this->call(ParameterSeeder::class);
         $this->call(RoomSettingSeeder::class);
         $this->call(DefaultSettingSeeder::class);

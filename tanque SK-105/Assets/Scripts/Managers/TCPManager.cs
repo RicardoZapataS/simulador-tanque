@@ -92,8 +92,8 @@ public class TCPManager {
 
     void TcpOnDataReceived(string msg) {
         Debug.Log($"Message: \"{msg}\"");
-        PackerData packer = JsonConvert.DeserializeObject<PackerData>(msg);
-        OnDataReceived[packer.id].callAction (packer);
+        //PackerData packer = JsonConvert.DeserializeObject<PackerData>(msg);
+        //OnDataReceived[packer.id].callAction (packer);
     }
 
     public void sendData<T>(TypeDataPackage t, int id, T data) {
@@ -105,7 +105,7 @@ public class TCPManager {
             data = data
         };
 
-        tcp.sendData(JsonConvert.SerializeObject(packer));
+        //tcp.sendData(JsonConvert.SerializeObject(packer));
     }
 
     public void addListener(int instaceID, Action<PackerData> action) {

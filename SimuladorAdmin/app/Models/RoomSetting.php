@@ -13,11 +13,14 @@ class RoomSetting extends Model
         'ammountBullet',
         'targetDistance',
         'TimeSimulator',
-        'selectedSceneName'
+        'terrain_id'
     ];
 
     public function defaultSetting()
     {
         return $this->hasOne(DefaultSetting::class, 'room_setting_id', 'id');
+    }
+    public  function terrain(){
+        return $this->belongsTo(Terrain::class);
     }
 }

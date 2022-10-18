@@ -282,7 +282,7 @@ MonoBehaviour:
   - "El hombre que se levanta es a\xFAn m\xE1s grande que el que no ha ca\xEDdo"
   - 'Mejor es morir de una vez que vivir temiendo la vida. '
   mainMenuCamera: {fileID: 1046108114}
-  debug: 1
+  debug: 0
 --- !u!1 &472657274
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,6 +18,8 @@ class RoomSettingSeeder extends Seeder
             'ammountBullet' => '3',
             'targetDistance' => '1000.0',
             'TimeSimulator' => '00:00',
+            'terrain_id' => '1',
+
         ]);
         DB::table('room_settings')->insert([
             'tankColor' => '#FFFF00',
@@ -26,6 +28,8 @@ class RoomSettingSeeder extends Seeder
             'ammountBullet' => '1',
             'targetDistance' => '1300.0',
             'TimeSimulator' => '00:00',
+            'terrain_id' => '2',
+
         ]);
         DB::table('room_settings')->insert([
             'tankColor' => '#FFFFFF',
@@ -34,6 +38,8 @@ class RoomSettingSeeder extends Seeder
             'ammountBullet' => '1',
             'targetDistance' => '1500.0',
             'TimeSimulator' => '01:00',
+            'terrain_id' => '3',
+
         ]);
     }
 }
