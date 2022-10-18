@@ -18,6 +18,9 @@ class CreateRoomsTable extends Migration
             $table->unsignedBigInteger('room_setting_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('room_setting_id')->references('id')->on('room_settings');
         });
     }
 

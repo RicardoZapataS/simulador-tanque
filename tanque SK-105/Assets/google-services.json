@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "313683592485",
+    "project_id": "simulador-8ee02",
+    "storage_bucket": "simulador-8ee02.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:313683592485:android:dd1bf7f237cddbad0446cc",
+        "android_client_info": {
+          "package_name": "com.emi.tanque_sk105"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "313683592485-1oc36phghtkfg3pl8hqo6b12r703eovd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKQMz6Jr0sdHdwP3drztY48galaENjHpk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "313683592485-1oc36phghtkfg3pl8hqo6b12r703eovd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

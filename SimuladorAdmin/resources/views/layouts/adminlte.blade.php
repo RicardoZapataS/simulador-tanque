@@ -69,6 +69,7 @@
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="/" class="nav-link"><b>Inicio</b> </a>
                 </li>
+                @yield('header')
             </ul>
 
             <!-- Right navbar links -->
@@ -122,8 +123,8 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="{{route('index')}}" class="nav-link">
-                                    <i class="nav-icon fas fa-home"></i>
+                                <a href="{{route('historial')}}" class="nav-link">
+                                    <i class="nav-icon fas fa-book"></i>
                                     <p>
                                         Historial
                                     </p>

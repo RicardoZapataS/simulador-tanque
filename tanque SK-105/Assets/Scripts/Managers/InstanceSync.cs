@@ -11,7 +11,7 @@ public class InstanceSync : MonoBehaviour {
     public event Action<RemoteBulletData> onRemoteInstance;
 
     void Start() {
-        tcp = TCPManager.Main;
+        tcp = TCPManager.Instance;
         id = gameObject.GetInstanceID();
 
         tcp.addListener(id, OnDataReceiver);

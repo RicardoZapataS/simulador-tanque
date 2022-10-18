@@ -21,7 +21,10 @@ class CreateRoomSettingsTable extends Migration
             $table->integer("ammountBullet");
             $table->float("targetDistance");
             $table->string("TimeSimulator");
+            $table->unsignedBigInteger("terrain_id");
             $table->timestamps();
+
+            $table->foreign('terrain_id')->references('id')->on('terrains');
         });
     }
 

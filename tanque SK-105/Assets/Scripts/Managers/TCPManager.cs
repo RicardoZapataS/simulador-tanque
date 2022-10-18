@@ -41,11 +41,11 @@ public class TCPManager {
 
     #region Singletone
 
-    static TCPManager singletone = null;
-    public static TCPManager Main => singletone;
+    private static TCPManager instance = null;
+    public static TCPManager Instance => instance;
 
     public static void CreateTCPInstance (bool isServer) {
-        singletone = new TCPManager(isServer);
+        instance = new TCPManager(isServer);
     }
 
     public TCPManager(bool isServer) {

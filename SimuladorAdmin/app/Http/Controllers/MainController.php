@@ -15,12 +15,13 @@ class MainController extends Controller
     public function index()
     {
         $defaultSettings = DefaultSetting::all();
-        $tanquistas = User::all();
+        $tanquistas = User::where('password', '=', 'unpassword')->get();
         return view("main.index", compact('defaultSettings', 'tanquistas'));
     }
 
     public function StartRoom(Request $request)
     {
+//        dd($request->user_id);
         //dd($request->all());
         $this->setParameter(1, 2);
         $this->setParameter(2,2);
@@ -34,6 +35,12 @@ class MainController extends Controller
             $roomSetting_id = $roomSetting->id;
             // dd($roomSetting->id);
         }
+
+        if (is_null(Room::where('user_id' , $request->ss_user_id)->where('room_setting_id', 1)->get()->first()) && $roomSetting_id == 2)
+            return redirect(route('index'));
+        if (is_null(Room::where('user_id', $request->ss_user_id)->where('room_setting_id', 2)->get()->first()) && $roomSetting_id == 3)
+            return redirect(route('index'));
+//        dd(is_null(Room::where('user_id' , $request->ss_user_id)->where('room_setting_id', 1)->get()->first()));
         $room = new Room();
         $room->room_setting_id = $roomSetting_id;
         $room->user_id = $request->ss_user_id;

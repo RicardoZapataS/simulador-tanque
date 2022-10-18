@@ -12,7 +12,8 @@ class RoomSetting extends Model
         'tankSize',
         'ammountBullet',
         'targetDistance',
-        'TimeSimulator'
+        'TimeSimulator',
+        'selectedSceneName'
     ];
 
     public function defaultSetting()

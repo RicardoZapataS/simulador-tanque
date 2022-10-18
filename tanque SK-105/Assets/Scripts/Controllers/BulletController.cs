@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour {
 
-    [SerializeField] float lifeTime = 15f;
+    [SerializeField] float lifeTime = 5f;
     [SerializeField] BulletData bulletData;
     [SerializeField] GameObject explosionPrefab;
 

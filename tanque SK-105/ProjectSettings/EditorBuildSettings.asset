@@ -11,4 +11,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ShotingCurt.unity
     guid: 97dd5e2f2e72997418413b498abc05e9
+  - enabled: 1
+    path: Assets/Free Island Collection/Scenes/Scene 1.unity
+    guid: 21395a1af6f566b459cf2f256020dc81
+  - enabled: 1
+    path: Assets/Free Island Collection/Scenes/Scene 2.unity
+    guid: 565db450102e511409619c0e510f2f11
+  - enabled: 1
+    path: Assets/Free Island Collection/Scenes/Scene 3.unity
+    guid: 71d8ab01ba1810143bc5196b90c9dc80
+  - enabled: 1
+    path: Assets/Free Island Collection/Scenes/Scene 4.unity
+    guid: 14e56cc4fda44024a9ad0c79b175a8fd
+  - enabled: 1
+    path: Assets/Free Island Collection/Scenes/Scene 5.unity
+    guid: 3ea34c218bf1ede4a88b561bf1a0c9c9
   m_configObjects: {}

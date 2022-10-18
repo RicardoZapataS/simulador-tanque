@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+define("SIMULATOR_STATE", "1");
+define("LATEST_ROOM_IN_DATABASE", "3");
 use App\Models\RoomSetting;
 use App\Models\Room;
 use App\Models\RoomShooting;
@@ -10,11 +12,9 @@ use App\Models\Parameters;
 
 class RoomSettingController extends Controller
 {
-
-
     public function GetRoomSettings()
     {
-        $room = Room::find($this->getParameter(3));
+        $room = Room::find($this->getParameter(LATEST_ROOM_IN_DATABASE));
         $room_setting = RoomSetting::find($room->room_setting_id);
         return $room_setting;
     }
@@ -25,12 +25,12 @@ class RoomSettingController extends Controller
 
     public function GetSimulatorState()
     {
-        $state = Parameters::find(1);
+        $state = Parameters::find(SIMULATOR_STATE);
         return $state;
     }
     public function SetState($value)
     {
-        $state = Parameters::find(1);
+        $state = Parameters::find(SIMULATOR_STATE);
         $state->value = $value;
         $state->save();
         return $state;
@@ -47,7 +47,7 @@ class RoomSettingController extends Controller
     }
     public function GetShootingTarget()
     {
-        $room_shootings = Room::find($this->getParameter(3))->room_shootings;
+        $room_shootings = Room::find($this->getParameter(LATEST_ROOM_IN_DATABASE))->room_shootings;
         return $room_shootings;
     }
     private function setParameter($id, $value)

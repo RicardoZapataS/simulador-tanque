@@ -24,27 +24,64 @@
                         <div class="card-body">
                             <table id="table_admin" class="table table-bordered table-striped">
                                 <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Nombre Completo</th>
-                                        <th>Cargo</th>
-                                        <th>Correo</th>
-                                        <th>Fecha ingreso</th>
-                                    </tr>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nombre Completo</th>
+                                    <th>Cargo</th>
+                                    <th>Correo</th>
+                                    <th>Fecha ingreso</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($admins as $key => $admin)
-                                        <tr>
-                                            <td>{{ $key + 1 }}</td>
-                                            <td>{{ $admin->name }}</td>
-                                            <td>{{ $admin->email }}</td>
-                                            <td>{{ $admin->email }}</td>
-                                            <td>{{ $admin->crated_at }}</td>
-                                        </tr>
-                                    @endforeach
+                                @foreach ($admins as $key => $admin)
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>{{ $admin->name }}</td>
+                                        <td>{{ $admin->email }}</td>
+                                        <td>{{ $admin->email }}</td>
+                                        <td>{{ $admin->created_at }}</td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
-                            <a href="{{route('usuario.create')}}" class="btn btn-sm btn-secondary float-right mt-3">Nuevo administrador</a>
+                            <a href="{{route('usuario.admin')}}" class="btn btn-sm btn-secondary float-right mt-3">Nuevo administrador</a>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+                <div class="col-12">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Lista de usuarios </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="table_admin" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nombre Completo</th>
+                                    <th>Cargo</th>
+                                    <th>Correo</th>
+                                    <th>Fecha ingreso</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach ($users as $key => $admin)
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>{{ $admin->name }}</td>
+                                        <td>{{ $admin->email }}</td>
+                                        <td>{{ $admin->email }}</td>
+                                        <td>{{ $admin->created_at }}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                            <a href="{{route('usuario.create')}}" class="btn btn-sm btn-secondary float-right mt-3">Nuevo usuario</a>
                         </div>
                         <!-- /.card-body -->
                     </div>

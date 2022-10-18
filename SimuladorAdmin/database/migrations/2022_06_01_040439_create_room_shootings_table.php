@@ -20,6 +20,8 @@ class CreateRoomShootingsTable extends Migration
             $table->integer('target');
             $table->unsignedBigInteger('room_id');
             $table->timestamps();
+
+            $table->foreign('room_id')->references('id')->on('rooms');
         });
     }
 

@@ -9,7 +9,7 @@ public class TransformSync : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        tcp = TCPManager.Main;
+        tcp = TCPManager.Instance;
         id = gameObject.GetInstanceID();
 
         lastPos = transform.position;

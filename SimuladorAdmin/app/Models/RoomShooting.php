@@ -11,6 +11,8 @@ class RoomShooting extends Model
     public function getTagAttribute()
     {
         switch ($this->site_shooting) {
+            case "-1":
+                return asset('assets/img/targets/nothing.png');
             case "0":
                 return asset('assets/img/targets/oruga.png');
             case "1":

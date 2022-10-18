@@ -23,6 +23,6 @@ public class ConfigController : MonoBehaviour {
     }
 
 	private void OnApplicationQuit() {
-        TCPManager.Main.Disconnect();
+        TCPManager.Instance.Disconnect();
 	}
 }

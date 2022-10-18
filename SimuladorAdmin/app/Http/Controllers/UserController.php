@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -15,7 +16,7 @@ class UserController extends Controller
     public function index()
     {
         $admins = User::where('password', '!=', 'unpassword')->get();
-        $users = User::where('password', '==', 'unpassword')->get();
+        $users = User::where('password', '=', 'unpassword')->get();
         return view('users.index', compact('admins', 'users'));
     }
 
@@ -25,6 +26,16 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
+    {
+        return view('users.created');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function admin()
     {
         return view('users.create');
     }
@@ -37,7 +48,12 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $pass = 'unpassword';
+        if ($request->passw != 'unpassword')
+            $pass = Hash::make($request->password);
+//        dd($request->password);
+        User::create(['password' => $pass] + $request->all());
+        return  redirect(route('usuario.index'));
     }
 
     /**

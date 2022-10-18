@@ -4,8 +4,8 @@ using System.IO;
 
 public static class ApiHelper {
 
-    public const string URL = "https://simulador-tanque.wasoridevs.com/api";
-    // public const string URL = "http://127.0.0.1:8000/api";
+    //public const string URL = "https://simulador-tanque.wasoridevs.com/api";
+    public const string URL = "http://127.0.0.1:8000/api";
     // public const string URL = "http://192.168.120.7/api";
 
     public static SetStart LoadState(){

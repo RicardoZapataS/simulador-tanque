@@ -54,7 +54,7 @@ public class RoomManager : MonoBehaviour {
         }
 
         // Controll Time Text
-        timeText.gameObject.SetActive(TCPManager.Main.isServer);
+        timeText.gameObject.SetActive(TCPManager.Instance.isServer);
         if (!string.IsNullOrEmpty(settings.TimeSimulator) || !string.IsNullOrWhiteSpace(settings.TimeSimulator) || settings.TimeSimulator != "00:00")
             StartCoroutine(GameTimer());
         else

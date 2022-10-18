@@ -10,4 +10,5 @@ public class RoomSetting {
     public string TimeSimulator;
     public string created_at;
     public string updated_at;
+    public string selectedSceneName;
 }

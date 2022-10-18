@@ -183,6 +183,19 @@
                             </div>
                         </div>
                         <!-- /.form group -->
+                        <div class="form-group">
+                            <label>Terreno de simulacion:</label>
+                            <div class="input-group mb-3">
+                                <select name="selectedSceneName" id="selectedSceneName" class="form-control startRoom">
+                                    <option value="Scene 1">Terreno 1</option>
+                                    <option value="Scene 2">Terreno 2</option>
+                                    <option value="Scene 3">Terreno 3</option>
+                                    <option value="Scene 4">Terreno 4</option>
+                                    <option value="Scene 5">Terreno 5</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- /.form group -->
 
                         <br>
                         <div class="form-check">
