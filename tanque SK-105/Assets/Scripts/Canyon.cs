@@ -6,6 +6,7 @@ using TMPro;
 using BeardedManStudios.Forge.Networking.Generated;
 using BeardedManStudios.Forge.Networking;
 using UnityEngine.UI;
+using System.IO.Ports;
 
 [RequireComponent(typeof(AudioSource))]
 public class Canyon : TankBehavior
@@ -34,6 +35,8 @@ public class Canyon : TankBehavior
 
     RoomSetting setting;
 
+    SerialPort serialPort = new SerialPort("COM9", 9600); //Inicializamos el puerto serie
+
     public static Canyon singletone;
 
     void Start()
@@ -51,6 +54,9 @@ public class Canyon : TankBehavior
         textAmmo.text = $"Municion: {currentAmmo}/{maxAmmo}";
 
         NetworkObject.Flush(TCPManager.Instance.netWorker);
+
+        serialPort.Open(); //Abrimos una nueva conexión de puerto serie
+        serialPort.ReadTimeout = 1; //Establecemos el tiempo de espera cuando una operación de lectura no finaliza
     }
 
     private void Update()
@@ -93,34 +99,68 @@ public class Canyon : TankBehavior
             float x = Input.GetAxis("Horizontal");
             float y = Input.GetAxis("Vertical");
 
-            if (x > 0)
+            move(x, y);
+            if (serialPort.IsOpen) //comprobamos que el puerto esta abierto
             {
-                x = 1;
+                try //utilizamos el bloque try/catch para detectar una posible excepción.
+                {
+                    string value = serialPort.ReadLine(); //leemos una linea del puerto serie y la almacenamos en un string
+                    print(value); //printeamos la linea leida para verificar que leemos el dato que manda nuestro Arduino
+                    switch (value)
+                    {
+                        case "W":
+                            move(0, 1);
+                            break;
+                        case "S":
+                            move(0, -1);
+                            break;
+                        case "A":
+                            move(-1, 0);
+                            break;
+                        case "D":
+                            move(1, 0);
+                            break;
+                        case "P":
+                          
+                                Shoot();
+                            
+                                audioSource?.PlayOneShot(outOfAmmo);
+                            break;
+                    }
+                }catch { }
+
             }
-            else if (x < 0)
-            {
-                x = -1;
-            }
 
-            if (y > 0)
-            {
-                y = 1;
-            }
-            else if (y < 0)
-            {
-                y = -1;
-            }
-
-            if (x != 0)
-                transform.Rotate(Vector3.up * smooth * Time.deltaTime * x, Space.World);
-
-
-            if (y != 0)     
-                transform.Rotate(Vector3.right * Time.deltaTime * smooth  * y, Space.Self);
-
-            
-            
         }
+    }
+
+    private void move(float x, float y)
+    {
+        if (x > 0)
+        {
+            x = 1;
+        }
+        else if (x < 0)
+        {
+            x = -1;
+        }
+
+        if (y > 0)
+        {
+            y = 1;
+        }
+        else if (y < 0)
+        {
+            y = -1;
+        }
+
+
+        if (x != 0)
+            transform.Rotate(Vector3.up * smooth * Time.deltaTime * x, Space.World);
+
+
+        if (y != 0)
+            transform.Rotate(Vector3.right * Time.deltaTime * smooth * y, Space.Self);
     }
 
     void Shoot()
